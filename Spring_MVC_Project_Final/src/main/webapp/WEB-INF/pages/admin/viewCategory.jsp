@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +57,10 @@
 												</a>
 											</div>
 										</div>
+										<form action="searchCategory" method="get">
+										<input type="text" name="search">
+										<input type="submit" value="search">
+										</form>
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
 												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
@@ -99,16 +104,11 @@
 												<c:forEach items="${roomCategoryList }" var="item">
 													<tr>
 														<td class="center">${item.id }</td>
-														<td class="center"><%-- <c:choose> --%>
-																<%-- <c:when test="${item.imageEntities != null }"> --%>
+														<td class="center">
 																<c:forEach items="${item.imageEntities }" var ="image" end="0">
 																<img width="100" src="<c:url value="/resources-management/assets/img/${image.name}"/>"/>
 																	</c:forEach>
-																<%-- </c:when>
-																<c:otherwise>
-																	
-																</c:otherwise> --%>
-														<%-- </c:choose> --%></td>
+																</td>
 														<td class="center">${item.name }</td>
 														<td class="center">${item.size }</td>
 														<td class="center">${item.bedInfo }</td>

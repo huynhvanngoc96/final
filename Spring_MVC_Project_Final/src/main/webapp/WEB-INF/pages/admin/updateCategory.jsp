@@ -123,24 +123,24 @@
 												</div>
 											</div>
 										</div>
-										<table
-											class="table table-hover table-checkable order-column full-width"
-											id="example4">
-											<c:forEach items="${roomCategory.imageEntities }" var="item">
-												<tr>
 
-													<td class="center"><img width="100"
-														src="<c:url value="/resources-management/assets/img/${item.name}"/>" />
-											</c:forEach>
-
-
-										</table>
-										<spring:hidden path="imageEntities"/>
 										<label class="control-label col-md-3">Upload Room
 											Photos</label>
 										<div class="col-lg-12 p-t-20">
 											<spring:input path="images" type="file" multiple="multiple"
 												cssClass="dropzone" />
+										</div>
+										
+										<div class="col-lg-6 p-t-20">	
+											<c:forEach items="${roomCategory.imageEntities }" var="item">
+												<img width="100"
+													src="<c:url value="/resources-management/assets/img/${item.name}"/>" />
+												<a href="deleteImageCategory/${item.id }/${roomCategory.id}"
+													class="btn btn-tbl-delete btn-xs"> <i
+													class="fa fa-trash-o "></i>
+												</a>
+											</c:forEach>
+
 										</div>
 										<div class="col-lg-12 p-t-20">
 											<div class="mdl-textfield mdl-js-textfield txt-full-width">

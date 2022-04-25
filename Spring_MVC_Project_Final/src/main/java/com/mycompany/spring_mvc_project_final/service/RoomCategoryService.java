@@ -30,4 +30,9 @@ public class RoomCategoryService {
 	public void deleteById(int id) {
 		roomcategoryRepository.deleteById(id);
 	}
+	
+	public List<RoomCategoryEntity> searchByName(String search) {
+		return roomcategoryRepository.searchByName(search);	
+	}
+	
 }
