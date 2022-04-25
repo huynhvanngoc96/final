@@ -34,7 +34,7 @@ public class RoomEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private RoomStatus status;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "room_category_id")
 	private RoomCategoryEntity roomCategory;
 	

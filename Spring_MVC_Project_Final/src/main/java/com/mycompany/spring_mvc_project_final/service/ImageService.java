@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.spring_mvc_project_final.entities.ImageEntity;
@@ -24,6 +25,8 @@ public class ImageService {
 
 	@Autowired
 	ImageRepository imageRepository;
+	@Autowired
+	RoomCategoryService roomCategoryService;
 
 	public void save(ImageEntity image) {
 		imageRepository.save(image);
@@ -33,9 +36,22 @@ public class ImageService {
 		return imageRepository.findById(id);
 	}
 
-	public void deleteById(int id) {
-		imageRepository.deleteById(id);
+	public void deleteImgCategory(int categoryId, int id) {
+
+		imageRepository.deleteImgCategory(categoryId, id);
 	}
+	
+	public void deleteImgService(int serviceId, int id) {
+
+		imageRepository.deleteImgService(serviceId, id);
+	}
+
+	
+	public void deleteImgPromotion(int promotionId, int id) {
+
+		imageRepository.deleteImgPromotion(promotionId, id);
+	}
+
 
 	public List<ImageEntity> uploadImageService(MultipartFile[] files, HttpServletRequest servletRequest,
 			ServiceEntity service) {
@@ -66,15 +82,16 @@ public class ImageService {
 	public List<ImageEntity> uploadImageCategory(MultipartFile[] files, HttpServletRequest servletRequest,
 			RoomCategoryEntity roomCategory) {
 		System.err.println(files + "222aaaa");
-		
+
 		List<ImageEntity> lstImages = new ArrayList<ImageEntity>();
 
 		if (roomCategory.getId() == null) {
 
 		} else {
-			lstImages = roomCategory.getImageEntities();
-			System.err.println(roomCategory.getImageEntities().size() + "sda");
-
+			if (roomCategory.getImageEntities() != null) {
+				lstImages = roomCategory.getImageEntities();
+				System.err.println(roomCategory.getImageEntities().size() + "sda");
+			}
 		}
 		for (MultipartFile multipartFile : files) {
 			UUID uuid = UUID.randomUUID();

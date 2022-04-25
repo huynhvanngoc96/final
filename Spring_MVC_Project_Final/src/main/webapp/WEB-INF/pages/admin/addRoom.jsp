@@ -72,8 +72,8 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<div class="form-group">
 													<spring:select path="status" cssClass="form-control">
-														<spring:option value="">Select</spring:option>
-														<spring:options items="${status}" />
+														<spring:option value="status.AVAILABLE">AVAILABLE</spring:option>
+														<%-- <spring:options items="${status}" /> --%>
 													</spring:select>
 													<spring:errors path="status" />
 												</div>
@@ -85,8 +85,8 @@
 												<div class="form-group">
 													<spring:select path="roomCategory.id"
 														cssClass="form-control">
-														<spring:option value="">Select</spring:option>
-														<spring:options items="${roomCategory.id}" />
+														<spring:option value="">Select</spring:option> 	 		
+														<spring:options items="${categoryList}" itemLabel="name" itemValue="id" />
 													</spring:select>
 													<spring:errors path="roomCategory.id" />
 												</div>
@@ -96,7 +96,7 @@
 											<input type="submit" value="Add"
 												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
 											<a href="viewRoom">
-												<button type="button"
+					 							<button type="button"
 													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
 											</a>
 										</div>

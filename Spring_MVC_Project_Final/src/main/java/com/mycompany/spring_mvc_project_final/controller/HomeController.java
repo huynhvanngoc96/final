@@ -5,13 +5,9 @@
  */
 package com.mycompany.spring_mvc_project_final.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,25 +19,22 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.mycompany.spring_mvc_project_final.entities.ImageEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
-import com.mycompany.spring_mvc_project_final.enums.RoomCategoryStatus;
 import com.mycompany.spring_mvc_project_final.service.ImageService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.service.RoomCategoryService;
 import com.mycompany.spring_mvc_project_final.service.RoomService;
-import com.mycompany.spring_mvc_project_final.service.ServiceDetailsHandling;
+import com.mycompany.spring_mvc_project_final.service.ServiceService;
 import com.mycompany.spring_mvc_project_final.utils.SecurityUtils;
-
 
 @Controller
 public class HomeController {
@@ -53,7 +46,7 @@ public class HomeController {
 	RoomService roomService;
 
 	@Autowired
-	ServiceDetailsHandling serviceDetailsHandling;
+	ServiceService serviceService;
 
 	@Autowired
 	PromotionService promotionService;
@@ -86,12 +79,22 @@ public class HomeController {
 		return "error";
 	}
 
+	//Room Category
 	@GetMapping("/viewCategory")
 	public String viewCategory(Model model) {
 
 		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 		model.addAttribute("roomCategoryList", roomCategoryList);
 
+		return "admin/viewCategory";
+	}
+	@GetMapping("/searchCategory")
+	public String searchCategory(Model model, @RequestParam(value = "search") String search) {
+		
+	
+		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);;
+		model.addAttribute("roomCategoryList", roomCategoryList);
+		
 		return "admin/viewCategory";
 	}
 
@@ -144,11 +147,9 @@ public class HomeController {
 	public String updateCategory(Model model, @RequestParam(name = "id") int id) throws Exception {
 
 		RoomCategoryEntity opt_Category = roomCategoryService.findById(id);
-		/* Optional<ImageEntity> opt_Image = imageService.findById(id); */
 		if (opt_Category != null) {
 			model.addAttribute("roomCategory", opt_Category);
 
-			System.err.println(opt_Category.getImageEntities().size());
 			return "admin/updateCategory";
 		} else {
 			return "error";
@@ -175,10 +176,19 @@ public class HomeController {
 		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 		model.addAttribute("roomCategoryList", roomCategoryList);
 
-		System.err.println(roomCategory.getImageEntities().size());
 		return "admin/viewCategory";
 	}
 
+	@GetMapping("/deleteImageCategory/{id}/{categoryId}")
+	public String deleteImageCategory(Model model, @PathVariable(name = "id") int id,
+			@PathVariable(name = "categoryId") int categoryId) {
+
+		imageService.deleteImgCategory(categoryId, id);
+
+		return "redirect:/updateCategory?id=" + categoryId;
+	}
+
+	//Room
 	@GetMapping("/viewRoom")
 	public String viewRoom(Model model) {
 
@@ -192,7 +202,7 @@ public class HomeController {
 	public String addRoom(Model model) {
 
 		List<RoomCategoryEntity> categoryList = roomCategoryService.findAll();
-		
+
 		model.addAttribute("room", new RoomEntity());
 		model.addAttribute("categoryList", categoryList);
 		return "admin/addRoom";
@@ -213,11 +223,12 @@ public class HomeController {
 
 		return "admin/viewRoom";
 	}
-
+	
+	//Service
 	@GetMapping("/viewService")
 	public String viewService(Model model) {
 
-		List<ServiceEntity> serviceList = serviceDetailsHandling.findAll();
+		List<ServiceEntity> serviceList = serviceService.findAll();
 		model.addAttribute("serviceList", serviceList);
 
 		return "admin/viewService";
@@ -236,7 +247,7 @@ public class HomeController {
 			Model model, HttpServletRequest servletRequest) {
 
 		if (rs.hasErrors()) {
-			List<ServiceEntity> serviceList = serviceDetailsHandling.findAll();
+			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
 			return "admin/addCategory";
 		} else {
@@ -245,9 +256,9 @@ public class HomeController {
 				service.setImageEntities(imageService.uploadImageService(service.getImages(), servletRequest, service));
 			}
 			service.setCreateDate(LocalDate.now());
-			serviceDetailsHandling.save(service);
+			serviceService.save(service);
 
-			List<ServiceEntity> serviceList = serviceDetailsHandling.findAll();
+			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
 
 			return "admin/viewService";
@@ -255,6 +266,64 @@ public class HomeController {
 
 	}
 
+	@GetMapping("/deleteService")
+	public String deleteService(Model model, @RequestParam(name = "id") int id) {
+
+		serviceService.deleteById(id);
+
+		List<ServiceEntity> serviceList = serviceService.findAll();
+		model.addAttribute("serviceList", serviceList);
+
+		return "admin/viewService";
+
+	}
+
+	@GetMapping("/updateService")
+	public String updateService(Model model, @RequestParam(name = "id") int id) throws Exception {
+
+		Optional<ServiceEntity> opt_Service = serviceService.findById(id);
+		if (opt_Service != null) {
+			model.addAttribute("service", opt_Service);
+
+			return "admin/updateService";
+		} else {
+			return "error";
+		}
+
+	}
+
+	@PostMapping("/doUpdateService")
+	public String doUpdateService(@Valid @ModelAttribute(name = "service") ServiceEntity service,
+			BindingResult rs, Model model, HttpServletRequest servletRequest) {
+
+		if (rs.hasErrors()) {
+			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
+			model.addAttribute("roomCategoryList", roomCategoryList);
+			return "admin/updateCategory";
+
+		} else {
+			service.setImageEntities(
+					imageService.uploadImageService(service.getImages(), servletRequest, service));
+		}
+
+		serviceService.save(service);
+
+		List<ServiceEntity> serviceList = serviceService.findAll();
+		model.addAttribute("serviceList", serviceList);
+
+		return "admin/viewService";
+	}
+	
+	@GetMapping("/deleteImageService/{id}/{serviceId}")
+	public String deleteImageService(Model model, @PathVariable(name = "id") int id,
+			@PathVariable(name = "serviceId") int serviceId) {
+
+		imageService.deleteImgService(serviceId, id);
+
+		return "redirect:/updateService?id=" + serviceId;
+	}
+
+	//Promotion
 	@GetMapping("/viewPromotion")
 	public String viewPromotion(Model model) {
 
@@ -296,4 +365,49 @@ public class HomeController {
 		}
 	}
 
+
+	@GetMapping("/updatePromotion")
+	public String updatePromotion(Model model, @RequestParam(name = "id") int id) throws Exception {
+
+		Optional<PromotionEntity> opt_Promotion = promotionService.findById(id);
+		if (opt_Promotion != null) {
+			model.addAttribute("promotion", opt_Promotion);
+
+			return "admin/updatePromotion";
+		} else {
+			return "error";
+		}
+
+	}
+
+	@PostMapping("/doUpdatePromotion")
+	public String doUpdatePromotion(@Valid @ModelAttribute(name = "promotion") PromotionEntity promotion,
+			BindingResult rs, Model model, HttpServletRequest servletRequest) {
+
+		if (rs.hasErrors()) {
+			List<PromotionEntity> promotionList = promotionService.findAll();
+			model.addAttribute("promotionList", promotionList);
+			return "admin/updatePromotion";
+
+		} else {
+			promotion.setImageEntities(
+					imageService.uploadImagePromotion(promotion.getImages(), servletRequest, promotion));
+		}
+
+		promotionService.save(promotion);
+
+		List<PromotionEntity> promotionList = promotionService.findAll();
+		model.addAttribute("promotionList", promotionList);
+
+		return "admin/viewPromotion";
+	}
+	
+	@GetMapping("/deleteImagePromotion/{id}/{promotionId}")
+	public String deleteImagePromotion(Model model, @PathVariable(name = "id") int id,
+			@PathVariable(name = "promotionId") int promotionId) {
+
+		imageService.deleteImgPromotion(promotionId, id);
+
+		return "redirect:/updatePromotion?id=" + promotionId;
+	}
 }
