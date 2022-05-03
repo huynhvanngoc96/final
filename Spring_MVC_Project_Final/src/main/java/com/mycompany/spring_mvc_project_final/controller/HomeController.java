@@ -6,10 +6,12 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
 import com.mycompany.spring_mvc_project_final.entities.UserEntity;
+import com.mycompany.spring_mvc_project_final.service.BookingDetailsService;
+import com.mycompany.spring_mvc_project_final.service.BookingService;
 import com.mycompany.spring_mvc_project_final.service.ImageService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.service.RoomCategoryService;
@@ -58,6 +63,13 @@ public class HomeController {
 	
 	@Autowired
 	UserDetailsServiceImpl userService;
+	
+	@Autowired
+	BookingService bookingService;
+	
+	@Autowired
+	BookingDetailsService bookingDetailsService;
+	
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
@@ -442,12 +454,26 @@ public class HomeController {
 		return "home-admin";
 	}
 	
-	@GetMapping("/viewBooking")
-	public String viewBooking(Model model) {
+	@GetMapping("/viewBooking/{id}")
+	public String viewBooking(Model model, @PathVariable(name = "id")int id, BookingEntity booking) {
 		
-		List<RoomEntity> roomList = roomService.findAll();
-		model.addAttribute("roomList", roomList);
+		 List<RoomEntity> roomList = new ArrayList<RoomEntity>(); 
+		
+		if(id > 0) {
+			roomList = bookingService.findRoomByBookingId(id);
+			
+		} else {
+			roomList = null;
+		}
 
 		return "admin/bookingDetail";
+	}
+	
+	@GetMapping("/searchBooking/{id}") 
+	public String searchBooking(Model model, @PathVariable(name = "id")int id) {
+		
+		
+		
+		return "redirect:/viewBooking?id=" + id; 
 	}
 }
