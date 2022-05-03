@@ -23,15 +23,15 @@
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Room Category</div>
+								<div class="page-title">All Account</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Room Category</a>&nbsp;<i
+								<li><a class="parent-item" href="">Account</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">View Room Category</li>
+								<li class="active">Manage Account</li>
 							</ol>
 						</div>
 					</div>
@@ -58,8 +58,8 @@
 											</div>
 										</div>
 										<form action="searchCategory" method="get">
-										<input type="text" name="search">
-										<input type="submit" value="search">
+											<input type="text" name="search"> <input
+												type="submit" value="search">
 										</form>
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
@@ -88,35 +88,28 @@
 											<thead>
 												<tr>
 													<th class="center">Id</th>
-													<th class="center">Image</th>
+													<th class="center">Email</th>
 													<th class="center">Name</th>
-													<th class="center">Size</th>
-													<th class="center">Bed Info</th>
-													<th class="center">Capacity</th>
-													<th class="center">Price</th>
-													<th class="center">Create Date</th>
+													<th class="center">Gender</th>
+													<th class="center">BirthDay</th>
+													<th class="center">Address</th>
+													<th class="center">Phone Number</th>
 													<th class="center">Status</th>
-													<th class="center">Description</th>
 													<th class="center">Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${roomCategoryList }" var="item">
+												<c:forEach items="${userList }" var="item">
 													<tr>
 														<td class="center">${item.id }</td>
-														<td class="center">
-																<c:forEach items="${item.imageEntities }" var ="image" end="0">
-																<img width="100" src="<c:url value="/resources-management/assets/img/${image.name}"/>"/>
-																	</c:forEach>
-																</td>
-														<td class="center">${item.name }</td>
-														<td class="center">${item.size }</td>
-														<td class="center">${item.bedInfo }</td>
-														<td class="center">${item.capacity }</td>
-														<td class="center">$${item.price }</td>
-														<td class="center">${item.createDate }</td>
+														<td class="center">${item.email }</td>
+														<td class="center">${item.fullName }</td>
+														<td class="center">${item.gender }</td>
+														<td class="center">${item.birthDate }</td>
+														<td class="center">${item.address }</td>
+														<td class="center">${item.phoneNumber }</td>
 														<td class="center">${item.status }</td>
-														<td class="center">${item.description }</td>
+
 														<td class="center"><a
 															href="updateCategory?id=${item.id }"
 															class="btn btn-tbl-edit btn-xs"> <i

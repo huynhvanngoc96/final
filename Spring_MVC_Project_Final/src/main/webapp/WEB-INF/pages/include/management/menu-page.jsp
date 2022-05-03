@@ -68,20 +68,11 @@
 	                            </a>
 	                            <ul class="sub-menu">
 	                                <li class="nav-item">
-	                                    <a href="new_booking.html" class="nav-link ">
-	                                        <span class="title">New Booking</span>
-	                                    </a>
-	                                </li>
-	                                <li class="nav-item">
-	                                    <a href="view_booking.html" class="nav-link ">
+	                                    <a href="viewBooking" class="nav-link ">
 	                                        <span class="title">View Booking</span>
 	                                    </a>
 	                                </li>
-	                                <li class="nav-item">
-	                                    <a href="edit_booking.html" class="nav-link ">
-	                                        <span class="title">Edit Booking</span>
-	                                    </a>
-	                                </li>
+	                                
 	                            </ul>
 	                        </li>
 	                        <li class="nav-item">

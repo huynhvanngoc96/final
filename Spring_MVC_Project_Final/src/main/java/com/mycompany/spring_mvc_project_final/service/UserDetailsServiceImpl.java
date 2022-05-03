@@ -5,12 +5,14 @@
  */
 package com.mycompany.spring_mvc_project_final.service;
 
+import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 import com.mycompany.spring_mvc_project_final.entities.UserRoleEntity;
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
 import com.mycompany.spring_mvc_project_final.repository.UserRepository;
 import com.mycompany.spring_mvc_project_final.repository.UserRoleRepository;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,4 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return (UserDetails) new User(user.getEmail(), user.getPassword(), grantList);
     }
 
+    public List<UserEntity> findAll() {
+		return (List<UserEntity>) userRepository.findAll();
+	}
 }

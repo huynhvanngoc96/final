@@ -29,11 +29,13 @@ import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
+import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 import com.mycompany.spring_mvc_project_final.service.ImageService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.service.RoomCategoryService;
 import com.mycompany.spring_mvc_project_final.service.RoomService;
 import com.mycompany.spring_mvc_project_final.service.ServiceService;
+import com.mycompany.spring_mvc_project_final.service.UserDetailsServiceImpl;
 import com.mycompany.spring_mvc_project_final.utils.SecurityUtils;
 
 @Controller
@@ -53,6 +55,9 @@ public class HomeController {
 
 	@Autowired
 	ImageService imageService;
+	
+	@Autowired
+	UserDetailsServiceImpl userService;
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
@@ -409,5 +414,40 @@ public class HomeController {
 		imageService.deleteImgPromotion(promotionId, id);
 
 		return "redirect:/updatePromotion?id=" + promotionId;
+	}
+	
+	@GetMapping("/viewAccount")
+	public String viewAccount(Model model) {
+		
+		List<UserEntity> userList = userService.findAll();
+		model.addAttribute("userList", userList);
+
+		
+		return "home-admin";
+	}
+	
+	@GetMapping("/addAccount")
+	public String addAccount(Model model) {
+		
+		model.addAttribute("user", new UserEntity());
+		
+		return "admin/addAccount";
+	}
+	
+	@PostMapping("/doAddAccount")
+	public String doAddAccount(Model model) {
+		
+		
+		
+		return "home-admin";
+	}
+	
+	@GetMapping("/viewBooking")
+	public String viewBooking(Model model) {
+		
+		List<RoomEntity> roomList = roomService.findAll();
+		model.addAttribute("roomList", roomList);
+
+		return "admin/bookingDetail";
 	}
 }

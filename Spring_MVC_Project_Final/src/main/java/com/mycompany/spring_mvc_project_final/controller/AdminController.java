@@ -29,9 +29,5 @@ public class AdminController {
     }
     
 
-//    @RequestMapping("/all_room")
-//    public String viewRoom(Model model) {
-//
-//        return "admin/all_room";
-//    }
+
 }

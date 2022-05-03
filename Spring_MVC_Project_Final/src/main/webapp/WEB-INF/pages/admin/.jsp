@@ -29,9 +29,9 @@
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Room Category</a>&nbsp;<i
+								<li><a class="parent-item" href="">Booking</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">View Room Category</li>
+								<li class="active">Room Category</li>
 							</ol>
 						</div>
 					</div>
