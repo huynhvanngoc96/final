@@ -13,14 +13,17 @@ public class RoomService {
 
 	@Autowired
 	RoomRepository roomRepository;
-	
-	
+
 	public void save(RoomEntity room) {
 		roomRepository.save(room);
 	}
-	
+
 	public List<RoomEntity> findAll() {
 		return (List<RoomEntity>) roomRepository.findAll();
 	}
-	
+
+	public List<RoomEntity> findRoomByBookingId(int id) {
+		return roomRepository.findRoomByBookingId(id);
+	}
+
 }

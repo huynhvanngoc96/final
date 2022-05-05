@@ -28,8 +28,5 @@ public class BookingService {
 	public Optional<BookingEntity> findById(int id) {
 		return (Optional<BookingEntity>) bookingRepository.findById(id);
 	}
-	
-	public List<RoomEntity> findRoomByBookingId(int id) {
-		return bookingRepository.findRoomByBookingId(id);
-	}
+	  
 }

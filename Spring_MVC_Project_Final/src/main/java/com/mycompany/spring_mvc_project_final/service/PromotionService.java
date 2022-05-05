@@ -27,4 +27,8 @@ public class PromotionService {
 	public Optional<PromotionEntity> findById(int id) {
 		return promotionRepository.findById(id);
 	}
+	
+	public void deleteById(int id) {
+		promotionRepository.deleteById(id);
+	}
 }

@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
+import com.mycompany.spring_mvc_project_final.entities.ServiceBookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
 import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 import com.mycompany.spring_mvc_project_final.service.BookingDetailsService;
@@ -39,6 +41,7 @@ import com.mycompany.spring_mvc_project_final.service.ImageService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.service.RoomCategoryService;
 import com.mycompany.spring_mvc_project_final.service.RoomService;
+import com.mycompany.spring_mvc_project_final.service.ServiceBookingService;
 import com.mycompany.spring_mvc_project_final.service.ServiceService;
 import com.mycompany.spring_mvc_project_final.service.UserDetailsServiceImpl;
 import com.mycompany.spring_mvc_project_final.utils.SecurityUtils;
@@ -60,16 +63,18 @@ public class HomeController {
 
 	@Autowired
 	ImageService imageService;
-	
+
 	@Autowired
 	UserDetailsServiceImpl userService;
-	
+
 	@Autowired
 	BookingService bookingService;
-	
+
 	@Autowired
 	BookingDetailsService bookingDetailsService;
 	
+	@Autowired
+	ServiceBookingService serviceBookingService;
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
@@ -96,7 +101,7 @@ public class HomeController {
 		return "error";
 	}
 
-	//Room Category
+	// Room Category
 	@GetMapping("/viewCategory")
 	public String viewCategory(Model model) {
 
@@ -105,13 +110,13 @@ public class HomeController {
 
 		return "admin/viewCategory";
 	}
+
 	@GetMapping("/searchCategory")
 	public String searchCategory(Model model, @RequestParam(value = "search") String search) {
-		
-	
-		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);;
+
+		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);		
 		model.addAttribute("roomCategoryList", roomCategoryList);
-		
+
 		return "admin/viewCategory";
 	}
 
@@ -205,7 +210,7 @@ public class HomeController {
 		return "redirect:/updateCategory?id=" + categoryId;
 	}
 
-	//Room
+	// Room
 	@GetMapping("/viewRoom")
 	public String viewRoom(Model model) {
 
@@ -240,8 +245,8 @@ public class HomeController {
 
 		return "admin/viewRoom";
 	}
-	
-	//Service
+
+	// Service
 	@GetMapping("/viewService")
 	public String viewService(Model model) {
 
@@ -310,8 +315,8 @@ public class HomeController {
 	}
 
 	@PostMapping("/doUpdateService")
-	public String doUpdateService(@Valid @ModelAttribute(name = "service") ServiceEntity service,
-			BindingResult rs, Model model, HttpServletRequest servletRequest) {
+	public String doUpdateService(@Valid @ModelAttribute(name = "service") ServiceEntity service, BindingResult rs,
+			Model model, HttpServletRequest servletRequest) {
 
 		if (rs.hasErrors()) {
 			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
@@ -319,8 +324,7 @@ public class HomeController {
 			return "admin/updateCategory";
 
 		} else {
-			service.setImageEntities(
-					imageService.uploadImageService(service.getImages(), servletRequest, service));
+			service.setImageEntities(imageService.uploadImageService(service.getImages(), servletRequest, service));
 		}
 
 		serviceService.save(service);
@@ -330,7 +334,7 @@ public class HomeController {
 
 		return "admin/viewService";
 	}
-	
+
 	@GetMapping("/deleteImageService/{id}/{serviceId}")
 	public String deleteImageService(Model model, @PathVariable(name = "id") int id,
 			@PathVariable(name = "serviceId") int serviceId) {
@@ -340,7 +344,7 @@ public class HomeController {
 		return "redirect:/updateService?id=" + serviceId;
 	}
 
-	//Promotion
+	// Promotion
 	@GetMapping("/viewPromotion")
 	public String viewPromotion(Model model) {
 
@@ -382,7 +386,6 @@ public class HomeController {
 		}
 	}
 
-
 	@GetMapping("/updatePromotion")
 	public String updatePromotion(Model model, @RequestParam(name = "id") int id) throws Exception {
 
@@ -418,7 +421,7 @@ public class HomeController {
 
 		return "admin/viewPromotion";
 	}
-	
+
 	@GetMapping("/deleteImagePromotion/{id}/{promotionId}")
 	public String deleteImagePromotion(Model model, @PathVariable(name = "id") int id,
 			@PathVariable(name = "promotionId") int promotionId) {
@@ -427,53 +430,82 @@ public class HomeController {
 
 		return "redirect:/updatePromotion?id=" + promotionId;
 	}
+
+	@GetMapping("/deletePromotion")
+	public String deletePromotion(Model model, @RequestParam(name = "id") int id) {
+
+		promotionService.deleteById(id);
+
+		List<PromotionEntity> promotionList = promotionService.findAll();
+		model.addAttribute("promotionList", promotionList);
+
+		return "admin/viewPromotion";
+
+	}
 	
+	// Account 
 	@GetMapping("/viewAccount")
 	public String viewAccount(Model model) {
-		
+
 		List<UserEntity> userList = userService.findAll();
 		model.addAttribute("userList", userList);
 
-		
 		return "home-admin";
 	}
-	
+
 	@GetMapping("/addAccount")
 	public String addAccount(Model model) {
-		
+
 		model.addAttribute("user", new UserEntity());
-		
+
 		return "admin/addAccount";
 	}
-	
+
 	@PostMapping("/doAddAccount")
 	public String doAddAccount(Model model) {
-		
-		
-		
+
 		return "home-admin";
 	}
-	
-	@GetMapping("/viewBooking/{id}")
-	public String viewBooking(Model model, @PathVariable(name = "id")int id, BookingEntity booking) {
-		
-		 List<RoomEntity> roomList = new ArrayList<RoomEntity>(); 
-		
-		if(id > 0) {
-			roomList = bookingService.findRoomByBookingId(id);
-			
-		} else {
-			roomList = null;
-		}
+
+	//Booking 
+	@GetMapping("/viewBooking")
+	public String viewBooking(Model model, @ModelAttribute(name = "booking") BookingEntity booking) {
 
 		return "admin/bookingDetail";
 	}
-	
-	@GetMapping("/searchBooking/{id}") 
-	public String searchBooking(Model model, @PathVariable(name = "id")int id) {
+
+	@GetMapping("/searchBooking")
+	public String searchBooking(Model model, @RequestParam(name = "keyword") String keyword,
+			@ModelAttribute(name = "booking") BookingEntity booking) {
+
+		if (keyword != "") {
+			int id = Integer.parseInt(keyword);
+			List<BookingDetailEntity> bookingDetailList = bookingDetailsService.findBookingDetailsByBookingId(id);
+			Optional<BookingEntity> opt_Booking = bookingService.findById(id);
+			List<ServiceBookingEntity> serviceBookingList = serviceBookingService.findServiceBookingByBookingId(id);
+			model.addAttribute("booking", opt_Booking);
+			model.addAttribute("bookingDetailList", bookingDetailList);
+			model.addAttribute("serviceBookingList", serviceBookingList);
+
+		} else {
+			return "admin/bookingDetail";
+		}
 		
-		
-		
-		return "redirect:/viewBooking?id=" + id; 
+		return "admin/bookingDetail";
 	}
+	
+	@GetMapping("/addServiceBooking")
+	public String addServiceBooking(Model model,  @RequestParam(name = "id") int id, ServiceBookingEntity serviceBooking) {
+
+		ServiceBookingEntity serviceBookingLists = serviceBookingService.findById(id);
+		if (serviceBookingLists != null) {
+			model.addAttribute("serviceBookingLists", serviceBookingLists);
+
+			return "admin/serviceBooking";
+		} else {
+			return "error";
+		}
+		
+	}
+	
 }

@@ -25,8 +25,7 @@ public class ImageService {
 
 	@Autowired
 	ImageRepository imageRepository;
-	@Autowired
-	RoomCategoryService roomCategoryService;
+
 
 	public void save(ImageEntity image) {
 		imageRepository.save(image);
@@ -58,21 +57,30 @@ public class ImageService {
 
 		List<ImageEntity> lstImages = new ArrayList<ImageEntity>();
 
+		if (service.getId() == null) {
+
+		} else {
+			if (service.getImageEntities() != null) {
+				lstImages = service.getImageEntities();
+			}
+		}
 		for (MultipartFile multipartFile : files) {
-
 			UUID uuid = UUID.randomUUID();
-			String fileName = "-service-" + uuid.toString() + multipartFile.getOriginalFilename();
-			ImageEntity image = new ImageEntity();
-			image.setName(fileName);
-			image.setService(service);
-			lstImages.add(image);
+			if (multipartFile.getOriginalFilename().length() > 0) {
 
-			File imageFile = new File(
-					servletRequest.getServletContext().getRealPath("/resources-management/assets/img"), fileName);
-			try {
-				multipartFile.transferTo(imageFile);
-			} catch (IOException e) {
-				e.printStackTrace();
+				String fileName = "-service-  " + uuid.toString() + multipartFile.getOriginalFilename();
+				ImageEntity image = new ImageEntity();
+				image.setName(fileName);
+				image.setService(service);
+				lstImages.add(image);
+
+				File imageFile = new File(
+						servletRequest.getServletContext().getRealPath("/resources-management/assets/img"), fileName);
+				try {
+					multipartFile.transferTo(imageFile);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -81,7 +89,7 @@ public class ImageService {
 
 	public List<ImageEntity> uploadImageCategory(MultipartFile[] files, HttpServletRequest servletRequest,
 			RoomCategoryEntity roomCategory) {
-		System.err.println(files + "222aaaa");
+
 
 		List<ImageEntity> lstImages = new ArrayList<ImageEntity>();
 
@@ -90,7 +98,6 @@ public class ImageService {
 		} else {
 			if (roomCategory.getImageEntities() != null) {
 				lstImages = roomCategory.getImageEntities();
-				System.err.println(roomCategory.getImageEntities().size() + "sda");
 			}
 		}
 		for (MultipartFile multipartFile : files) {

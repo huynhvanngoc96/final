@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +23,15 @@
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Services</div>
+								<div class="page-title">Service Booking</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Service</a>&nbsp;<i
+								<li><a class="parent-item" href="">Service Booking</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">All Services</li>
+								<li class="active">Service Booking</li>
 							</ol>
 						</div>
 					</div>
@@ -38,7 +39,7 @@
 						<div class="col-md-12">
 							<div class="card card-box">
 								<div class="card-head">
-									<header>All Services</header>
+									<header>Service Booking</header>
 									<div class="tools">
 										<a class="fa fa-repeat btn-color box-refresh"
 											href="javascript:;"></a> <a
@@ -51,11 +52,12 @@
 									<div class="row p-b-20">
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group">
-												<a href="addService" id="addRow" class="btn btn-info">
+												<a href="addCategory" id="addRow" class="btn btn-info">
 													Add New <i class="fa fa-plus"></i>
 												</a>
 											</div>
 										</div>
+										
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
 												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
@@ -77,46 +79,26 @@
 										</div>
 									</div>
 									<div class="table-scrollable">
+									
 										<table
 											class="table table-hover table-checkable order-column full-width"
 											id="example4">
 											<thead>
 												<tr>
-													<th class="center">Id</th>
-													<th class="center">Name</th>
-													<th class="center">Image</th>
-													<th class="center">Description</th>
-													<th class="center">Open Time</th>
-													<th class="center">Location</th>
+													<th class="center">Name Service</th>
 													<th class="center">Price</th>
-													<th class="center">Create Date</th>
-													<th class="center">Status</th>
+													<th class="center">Quantity</th>
 													<th class="center">Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${serviceList }" var="item">
+												<c:forEach items="${serviceBookingLists }" var="item">
 													<tr>
-														<td class="center">${item.id }</td>
-														<td class="center">${item.name }</td>
-														<td class="center"><c:forEach
-																items="${item.imageEntities }" var="image" end="0">
-																<img width="100"
-																	src="<c:url value="/resources-management/assets/img/${image.name}"/>" />
-															</c:forEach></td>
-														<td class="center">${item.description }</td>
-														<td class="center">${item.openTime }</td>
-														<td class="center">${item.location }</td>
-														<td class="center">$${item.price }</td>
-														<td class="center">${item.createDate }</td>
-														<td class="center">${item.status }</td>
-														<td class="center"><a
-															href="updateService?id=${item.id }"
-															class="btn btn-tbl-edit btn-xs"> <i
-																class="fa fa-pencil"></i>
-														</a> <a href="deleteService?id=${item.id }"
-															class="btn btn-tbl-delete btn-xs"> <i
-																class="fa fa-trash-o "></i>
+														<%-- <td class="center">${item.service.name } </td> --%>
+														<td class="center">${item.price } </td>
+														<td class="center">${item.quantity } </td>
+														<td><a href="removeService?id=${item.id }">
+																<button type="button" class="btn btn-outline-danger">Remove Service</button>
 														</a></td>
 													</tr>
 

@@ -62,7 +62,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="name"
-													id="txtRoomNo" />
+													 />
 												<label class="mdl-textfield__label">Promotion Name</label>
 												<spring:errors path="name" />
 											</div>
@@ -92,7 +92,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input cssClass="mdl-textfield__input"
-													path="discount" id="txtRoomNo"
+													path="discount" 
 													pattern="-?[0-9]*(\.[0-9]+)?" />
 												<label class="mdl-textfield__label">Discount</label> <span
 													class="mdl-textfield__error">Number required!</span>

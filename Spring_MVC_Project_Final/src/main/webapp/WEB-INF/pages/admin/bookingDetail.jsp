@@ -57,11 +57,7 @@
 												</a>
 											</div>
 										</div>
-										<form action="searchBooking" method="get">
-										<label>Id </label>
-											<input type="text" name="search"> <input
-												type="submit" value="search">
-										</form>
+
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
 												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
@@ -83,6 +79,24 @@
 										</div>
 									</div>
 									<div class="table-scrollable">
+										<form action="searchBooking" method="get">
+											<label>Id </label> <input type="text" name="keyword">
+											<input type="submit" value="search">
+										</form>
+										<spring:form modelAttribute="booking">
+											<label>Check In</label>
+											<spring:input path="checkIn" readonly="true" />
+											<br>
+											<label>Check Out</label>
+											<spring:input path="CheckOut" readonly="true" />
+											<br>
+											<label>Name</label>
+											<spring:input path="fullName" readonly="true" />
+											<br>
+											<label>Status</label>
+											<spring:input path="status" readonly="true" />
+										</spring:form>
+
 										<table
 											class="table table-hover table-checkable order-column full-width"
 											id="example4">
@@ -97,26 +111,30 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${roomList }" var="item">
+												<c:forEach items="${bookingDetailList }" var="item">
 													<tr>
-														<td class="center">${item.roomNumber }</td>
-														<td class="center">$${item.roomCategory.price }</td>
+														<td class="center">${item.room.roomNumber }</td>
+														<td class="center">$${item.room.roomCategory.price }</td>
 														<td class="center"><c:forEach
-																items="${item.roomCategory.imageEntities }" var="image"
-																end="0">
+																items="${item.room.roomCategory.imageEntities }"
+																var="image" end="0">
 																<img width="100"
 																	src="<c:url value="/resources-management/assets/img/${image.name}"/>" />
 															</c:forEach></td>
-														<td class="center">${item.roomCategory.name }</td>
-														<td class="center"></td>
-														<td class="center"><a
-															href="updateCategory?id=${item.id }"
-															class="btn btn-tbl-edit btn-xs"> <i
-																class="fa fa-pencil"></i>
-														</a> <a href="deleteCategory?id=${item.id }"
-															class="btn btn-tbl-delete btn-xs"> <i
-																class="fa fa-trash-o "></i>
-														</a></td>
+														<td class="center">${item.room.roomCategory.name }</td>
+														
+														<c:forEach items="${serviceBookingList }" var="sv">
+														
+															<td class="center">${sv.service.name }</td>
+															<td class="center"><a
+																href="addServiceBooking?id=${sv.id }">
+																	<button type="button" class="btn btn-primary">Add
+																		Service</button>
+															</a> <a href="addGuest?id=${item.id }">
+																	<button type="button" class="btn btn-success">Add
+																		Guest</button>
+															</a></td>
+														</c:forEach>
 													</tr>
 
 												</c:forEach>

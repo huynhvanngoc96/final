@@ -11,10 +11,10 @@ public class Personal{
 	@Column(length = 100, nullable = false)
 	private String fullName;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 100)
 	private String address;
 
-	@Column(length = 15, nullable = false)
+	@Column(length = 15)
 	private String phoneNumber;
 
 	@Column(unique = true, length = 100)
@@ -23,7 +23,7 @@ public class Personal{
 	@Column(length = 4)
 	private String gender;
 
-	@Column(nullable = false)
+	@Column
 	private LocalDate birthDate;
 	
 	public Personal() {

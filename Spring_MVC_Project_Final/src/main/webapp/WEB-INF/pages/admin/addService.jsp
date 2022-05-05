@@ -62,7 +62,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="name"
-													id="txtRoomNo" />
+													 />
 												<label class="mdl-textfield__label">Service Name</label>
 											</div>
 										</div>
@@ -70,7 +70,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="openTime"
-													id="txtRoomNo" />
+													/>
 												<label class="mdl-textfield__label">Open Time</label>
 											</div>
 										</div>
@@ -78,7 +78,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="location"
-													id="txtRoomNo" />
+													 />
 												<label class="mdl-textfield__label">Location</label>
 											</div>
 										</div>
@@ -86,7 +86,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input cssClass="mdl-textfield__input" path="price"
-													id="txtRoomNo" pattern="-?[0-9]*(\.[0-9]+)?" />
+													pattern="-?[0-9]*(\.[0-9]+)?" />
 												<label class="mdl-textfield__label">Price</label> <span
 													class="mdl-textfield__error">Number required!</span>
 											</div>
@@ -108,7 +108,7 @@
 												Photos</label>
 										<div class="col-lg-12 p-t-20">	
 											<spring:input path="images" type="file" multiple="multiple"
-												id="id_dropzone" cssClass="dropzone" />								
+												cssClass="dropzone" />								
 										</div>
 										<div class="col-lg-12 p-t-20">
 											<div class="mdl-textfield mdl-js-textfield txt-full-width">
