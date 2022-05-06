@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.spring_mvc_project_final.dto.RoomServiceDetailsDto;
 import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
@@ -72,10 +73,47 @@ public class HomeController {
 
 	@Autowired
 	BookingDetailsService bookingDetailsService;
-	
+
 	@Autowired
 	ServiceBookingService serviceBookingService;
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	
+//	
+//	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+//	public String welcomePage(Model model) {
+//		model.addAttribute("title", "Welcome");
+//		model.addAttribute("message", "This is welcome page!");
+//		List<String> roles = SecurityUtils.getRolesOfUser();
+//		if (!CollectionUtils.isEmpty(roles) && (roles.contains(Role.ROLE_USER.name()))) {
+//			model.addAttribute("booking", new BookingEntity());
+////			List<String> roles = SecurityUtils.getRolesOfUser();
+////	        if (!CollectionUtils.isEmpty(roles) && (roles.contains("ROLE_ADMIN")
+////	                || roles.contains("ROLE_SELLER") || roles.contains("ROLE_MANAGER"))) {
+////	            return "redirect:/admin/home";
+////	        }
+//			
+//			
+//			return "home";
+//		}
+
+//		model.addAttribute("booking", new BookingEntity());
+//		System.out.println("===>" + passwordEncoder.encode("123456"));
+//		return "home-user";
+//	}
+
+//	@RequestMapping("/login")
+//	public String loginPage(Model model, @RequestParam(value = "error", required = false) boolean error) {
+//		if (error) {
+//			model.addAttribute("message", "Login Fail!!!");
+//		}
+//		System.out.println();
+//		return "login";
+//	}
+//	
+	
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
 		model.addAttribute("title", "Welcome");
@@ -114,7 +152,7 @@ public class HomeController {
 	@GetMapping("/searchCategory")
 	public String searchCategory(Model model, @RequestParam(value = "search") String search) {
 
-		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);		
+		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);
 		model.addAttribute("roomCategoryList", roomCategoryList);
 
 		return "admin/viewCategory";
@@ -442,8 +480,8 @@ public class HomeController {
 		return "admin/viewPromotion";
 
 	}
-	
-	// Account 
+
+	// Account
 	@GetMapping("/viewAccount")
 	public String viewAccount(Model model) {
 
@@ -467,7 +505,7 @@ public class HomeController {
 		return "home-admin";
 	}
 
-	//Booking 
+	// Booking
 	@GetMapping("/viewBooking")
 	public String viewBooking(Model model, @ModelAttribute(name = "booking") BookingEntity booking) {
 
@@ -476,36 +514,42 @@ public class HomeController {
 
 	@GetMapping("/searchBooking")
 	public String searchBooking(Model model, @RequestParam(name = "keyword") String keyword,
+
 			@ModelAttribute(name = "booking") BookingEntity booking) {
 
 		if (keyword != "") {
+			
 			int id = Integer.parseInt(keyword);
-			List<BookingDetailEntity> bookingDetailList = bookingDetailsService.findBookingDetailsByBookingId(id);
-			Optional<BookingEntity> opt_Booking = bookingService.findById(id);
-			List<ServiceBookingEntity> serviceBookingList = serviceBookingService.findServiceBookingByBookingId(id);
-			model.addAttribute("booking", opt_Booking);
-			model.addAttribute("bookingDetailList", bookingDetailList);
-			model.addAttribute("serviceBookingList", serviceBookingList);
+			List<BookingDetailEntity> bookingDetailList = bookingDetailsService. findBookingDetailsByBookingId(id);
+			 Optional<BookingEntity> opt_Booking = bookingService. findById(id);
+			 List<ServiceBookingEntity> serviceBookingList = serviceBookingService. findServiceBookingByBookingId(id);
+			 model. addAttribute("booking", opt_Booking);
+			 model. addAttribute("bookingDetailList", bookingDetailList);
+			 model. addAttribute("serviceBookingList", serviceBookingList);
 
 		} else {
 			return "admin/bookingDetail";
 		}
-		
+
 		return "admin/bookingDetail";
 	}
-	
-	@GetMapping("/addServiceBooking")
-	public String addServiceBooking(Model model,  @RequestParam(name = "id") int id, ServiceBookingEntity serviceBooking) {
 
-		ServiceBookingEntity serviceBookingLists = serviceBookingService.findById(id);
-		if (serviceBookingLists != null) {
-			model.addAttribute("serviceBookingLists", serviceBookingLists);
-
-			return "admin/serviceBooking";
-		} else {
-			return "error";
+	@GetMapping("/addServiceBooking/{id}")
+	public String addServiceBooking(Model model, @PathVariable(name = "id") int id,
+			ServiceBookingEntity serviceBooking) {
+		System.err.println("id" + id);
+//		List<ServiceEntity> lstService = serviceService.findServiceByRoom(id);
+		List<ServiceBookingEntity> lstServiceBooking= serviceBookingService.findByRoom(id);
+		List<RoomServiceDetailsDto> roomServiceDetailsDtos = new ArrayList<RoomServiceDetailsDto>();
+		RoomServiceDetailsDto detailsDto = new RoomServiceDetailsDto();
+		for (int i= 0; i <= roomServiceDetailsDtos.size(); i ++) {
+//			detailsDto.setServiceName(lstService.get(i).getName());
+			detailsDto.setServiceBookingPrice(lstServiceBooking.get(i).getPrice());
+			detailsDto.setServiceBookingQuantity(lstServiceBooking.get(i).getQuantity());
+			roomServiceDetailsDtos.add(detailsDto);
 		}
-		
+		model.addAttribute("roomServiceDetailsDtos",roomServiceDetailsDtos);
+		return "admin/serviceBooking";
 	}
-	
+
 }

@@ -92,14 +92,14 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${serviceBookingLists }" var="item">
+												<c:forEach items="${roomServiceDetailsDtos }" var="item">
 													<tr>
-														<%-- <td class="center">${item.service.name } </td> --%>
+														
 														<td class="center">${item.price } </td>
 														<td class="center">${item.quantity } </td>
-														<td><a href="removeService?id=${item.id }">
+														<%-- <td><a href="removeService?id=${item.id }">
 																<button type="button" class="btn btn-outline-danger">Remove Service</button>
-														</a></td>
+														</a></td> --%>
 													</tr>
 
 												</c:forEach>

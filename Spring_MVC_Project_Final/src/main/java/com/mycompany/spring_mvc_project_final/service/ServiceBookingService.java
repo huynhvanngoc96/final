@@ -29,4 +29,9 @@ public class ServiceBookingService {
 	public ServiceBookingEntity findById(int id) {
 		return serviceBookingRepository.findById(id).orElse(null);
 	}
+
+	public List<ServiceBookingEntity> findByRoom(int id) {
+		
+		return serviceBookingRepository.findByRoom(id);
+	}
 }

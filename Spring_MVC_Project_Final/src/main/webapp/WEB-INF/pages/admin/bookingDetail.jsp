@@ -114,7 +114,8 @@
 												<c:forEach items="${bookingDetailList }" var="item">
 													<tr>
 														<td class="center">${item.room.roomNumber }</td>
-														<td class="center">$${item.room.roomCategory.price }</td>
+														<td class="center">$${item.room.roomCategory.price
+															}</td>
 														<td class="center"><c:forEach
 																items="${item.room.roomCategory.imageEntities }"
 																var="image" end="0">
@@ -122,19 +123,19 @@
 																	src="<c:url value="/resources-management/assets/img/${image.name}"/>" />
 															</c:forEach></td>
 														<td class="center">${item.room.roomCategory.name }</td>
-														
-														<c:forEach items="${serviceBookingList }" var="sv">
-														
-															<td class="center">${sv.service.name }</td>
-															<td class="center"><a
-																href="addServiceBooking?id=${sv.id }">
-																	<button type="button" class="btn btn-primary">Add
-																		Service</button>
-															</a> <a href="addGuest?id=${item.id }">
-																	<button type="button" class="btn btn-success">Add
-																		Guest</button>
-															</a></td>
-														</c:forEach>
+
+														<td class="center"><%-- <c:forEach
+																items="${serviceBookingList }" var="sv">${sv.service.name }  </c:forEach> --%></td>
+														<td class="center">
+														<a
+															href="addServiceBooking/${item.room.id }">
+																<button type="button" class="btn btn-primary">Add
+																	Service</button>
+														</a> <a href="addGuest?id=${item.id }">
+																<button type="button" class="btn btn-success">Add
+																	Guest</button>
+														</a></td>
+
 													</tr>
 
 												</c:forEach>
