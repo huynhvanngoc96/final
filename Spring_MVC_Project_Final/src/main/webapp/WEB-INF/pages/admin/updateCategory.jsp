@@ -131,14 +131,18 @@
 												cssClass="dropzone" />
 										</div>
 										
-										<div class="col-lg-6 p-t-20">	
+										<div class="col-lg-12 p-t-20"  >	
 											<c:forEach items="${roomCategory.imageEntities }" var="item">
-												<img width="100"
+
+													<img class="img-thumbnail" width = "300"
 													src="<c:url value="/resources-management/assets/img/${item.name}"/>" />
+												
+												
 												<a href="deleteImageCategory/${item.id }/${roomCategory.id}"
 													class="btn btn-tbl-delete btn-xs"> <i
 													class="fa fa-trash-o "></i>
 												</a>
+												
 											</c:forEach>
 
 										</div>

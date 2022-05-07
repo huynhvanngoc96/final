@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Room Category</title>
 <jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
 <jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
 </head>

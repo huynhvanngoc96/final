@@ -24,6 +24,9 @@
      <!-- dropzone -->
     <script src="<c:url value="resources-management/assets/plugins/dropzone/dropzone.js"  />"></script>
     <script src="<c:url value="resources-management/assets/plugins/dropzone/dropzone-call.js"  />"></script>
+    <!-- gallery -->
+	<script src="<c:url value="resources-management/assets/plugins/light-gallery/js/lightgallery-all.js" /> "></script> <!-- Light Gallery Plugin Js --> 
+	<script src="<c:url value="resources-management/assets/plugins/light-gallery/js/image-gallery.js" /> "></script>
     <!-- morris chart -->
     <script src="<c:url value="resources-management/assets/plugins/morris/morris.min.js" />"></script>
     <script src="<c:url value="resources-management/assets/plugins/morris/raphael-min.js" />"></script>

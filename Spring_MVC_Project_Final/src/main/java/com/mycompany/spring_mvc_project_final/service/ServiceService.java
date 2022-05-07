@@ -28,8 +28,8 @@ public class ServiceService {
 		return (List<ServiceEntity>) serviceRepository.findAll();
 	}
 
-	public Optional<ServiceEntity> findById(int id) {
-		return serviceRepository.findById(id);
+	public ServiceEntity findById(int id) {
+		return serviceRepository.findById(id).orElse(null);
 	}
 
 	public void deleteById(int id) {

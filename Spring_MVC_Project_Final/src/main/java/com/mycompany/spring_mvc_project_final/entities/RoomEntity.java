@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 import com.mycompany.spring_mvc_project_final.enums.RoomStatus;
 
@@ -27,7 +29,8 @@ public class RoomEntity implements Serializable {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "room_number", nullable = false)
+	@Column(name = "room_number", nullable = false, unique = true)
+	@NotBlank(message = "Room Number is required")
 	private String roomNumber;
 	
 	@Column(name = "status", nullable = false)
@@ -36,6 +39,7 @@ public class RoomEntity implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "room_category_id")
+
 	private RoomCategoryEntity roomCategory;
 	
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)

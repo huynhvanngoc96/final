@@ -55,7 +55,7 @@ public class ServiceEntity {
 	private String openTime;
 	
 	@Column(nullable = false, length = 50)
-	@NotBlank(message = "Open Time is required")
+	@NotBlank(message = "Location is required")
 	private String location;
 	
 	@Column

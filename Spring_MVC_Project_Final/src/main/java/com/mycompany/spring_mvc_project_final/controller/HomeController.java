@@ -36,6 +36,7 @@ import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceBookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
 import com.mycompany.spring_mvc_project_final.entities.UserEntity;
+import com.mycompany.spring_mvc_project_final.enums.RoomStatus;
 import com.mycompany.spring_mvc_project_final.service.BookingDetailsService;
 import com.mycompany.spring_mvc_project_final.service.BookingService;
 import com.mycompany.spring_mvc_project_final.service.ImageService;
@@ -46,6 +47,7 @@ import com.mycompany.spring_mvc_project_final.service.ServiceBookingService;
 import com.mycompany.spring_mvc_project_final.service.ServiceService;
 import com.mycompany.spring_mvc_project_final.service.UserDetailsServiceImpl;
 import com.mycompany.spring_mvc_project_final.utils.SecurityUtils;
+
 
 @Controller
 public class HomeController {
@@ -143,8 +145,7 @@ public class HomeController {
 	@GetMapping("/viewCategory")
 	public String viewCategory(Model model) {
 
-		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
-		model.addAttribute("roomCategoryList", roomCategoryList);
+		model.addAttribute("roomCategoryList", roomCategoryService.findAll());
 
 		return "admin/viewCategory";
 	}
@@ -152,8 +153,7 @@ public class HomeController {
 	@GetMapping("/searchCategory")
 	public String searchCategory(Model model, @RequestParam(value = "search") String search) {
 
-		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.searchByName(search);
-		model.addAttribute("roomCategoryList", roomCategoryList);
+		model.addAttribute("roomCategoryList", roomCategoryService.searchByName(search));
 
 		return "admin/viewCategory";
 	}
@@ -172,8 +172,9 @@ public class HomeController {
 			BindingResult rs, Model model, HttpServletRequest servletRequest) {
 
 		if (rs.hasErrors()) {
-			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
-			model.addAttribute("roomCategoryList", roomCategoryList);
+			
+			model.addAttribute("roomCategoryList", roomCategoryService.findAll());
+			
 			return "admin/addCategory";
 		} else {
 
@@ -261,23 +262,24 @@ public class HomeController {
 	@GetMapping("/addRoom")
 	public String addRoom(Model model) {
 
-		List<RoomCategoryEntity> categoryList = roomCategoryService.findAll();
 
 		model.addAttribute("room", new RoomEntity());
-		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryList", roomCategoryService.findAll());
+		model.addAttribute("status", RoomStatus.values());
 		return "admin/addRoom";
 	}
 
 	@PostMapping("/doAddRoom")
 	public String doAddRoom(@Valid @ModelAttribute(name = "room") RoomEntity room, BindingResult rs, Model model) {
 
-		if (rs.hasErrors()) {
-			List<RoomEntity> roomList = roomService.findAll();
-			model.addAttribute("roomList", roomList);
+		if (rs.hasErrors()) {		
+			model.addAttribute("categoryList", roomCategoryService.findAll());
+			model.addAttribute("roomList", room);
+			model.addAttribute("status", RoomStatus.values());
 			return "admin/addRoom";
 		}
 		roomService.save(room);
-
+		
 		List<RoomEntity> roomList = roomService.findAll();
 		model.addAttribute("roomList", roomList);
 
@@ -341,7 +343,7 @@ public class HomeController {
 	@GetMapping("/updateService")
 	public String updateService(Model model, @RequestParam(name = "id") int id) throws Exception {
 
-		Optional<ServiceEntity> opt_Service = serviceService.findById(id);
+		ServiceEntity opt_Service = serviceService.findById(id);
 		if (opt_Service != null) {
 			model.addAttribute("service", opt_Service);
 
@@ -357,8 +359,8 @@ public class HomeController {
 			Model model, HttpServletRequest servletRequest) {
 
 		if (rs.hasErrors()) {
-			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
-			model.addAttribute("roomCategoryList", roomCategoryList);
+			List<ServiceEntity> serviceList = serviceService.findAll();
+			model.addAttribute("serviceList", serviceList);
 			return "admin/updateCategory";
 
 		} else {
