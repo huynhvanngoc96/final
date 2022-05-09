@@ -25,8 +25,8 @@ public class BookingService {
 	}
 	
 	
-	public Optional<BookingEntity> findById(int id) {
-		return (Optional<BookingEntity>) bookingRepository.findById(id);
+	public BookingEntity findById(int id) {
+		return bookingRepository.findById(id).orElse(null);
 	}
 	  
 }

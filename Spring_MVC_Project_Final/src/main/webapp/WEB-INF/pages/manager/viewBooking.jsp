@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Room Category</title>
+<title>Booking</title>
 <jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
 <jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
 </head>
@@ -23,15 +23,15 @@
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Room Category</div>
+								<div class="page-title">Booking</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Room Category</a>&nbsp;<i
+								<li><a class="parent-item" href="">Booking</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">View Room Category</li>
+								<li class="active">View Booking</li>
 							</ol>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 						<div class="col-md-12">
 							<div class="card card-box">
 								<div class="card-head">
-									<header>Room Category</header>
+									<header>Booking</header>
 									<div class="tools">
 										<a class="fa fa-repeat btn-color box-refresh"
 											href="javascript:;"></a> <a
@@ -57,10 +57,7 @@
 												</a>
 											</div>
 										</div>
-										<form action="searchCategory" method="get">
-										<input type="text" name="search">
-										<input type="submit" value="search">
-										</form>
+
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
 												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
@@ -81,49 +78,51 @@
 											</div>
 										</div>
 									</div>
+
+									<div class="row p-b-20">
+										<div class="col-sm-6 col-md-6">
+											<div>
+												<form action="searchBooking" method="get">
+													<input type="text" name="search"> <input
+														type="submit" value="Search">
+												</form>
+											</div>
+										</div>
+									</div>
+
 									<div class="table-scrollable">
 										<table
 											class="table table-hover table-checkable order-column full-width"
 											id="example4">
 											<thead>
 												<tr>
-													<th class="center">Id</th>
-													<th class="center">Image</th>
 													<th class="center">Name</th>
-													<th class="center">Size</th>
-													<th class="center">Bed Info</th>
-													<th class="center">Capacity</th>
-													<th class="center">Price</th>
-													<th class="center">Create Date</th>
+													<th class="center">Mobile</th>
+													<th class="center">Email</th>
+													<th class="center">Booking Date</th>
+													<th class="center">Check In</th>
+													<th class="center">Check Out</th>
 													<th class="center">Status</th>
-													<th class="center">Description</th>
 													<th class="center">Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${roomCategoryList }" var="item">
+												<c:forEach items="${bookingList }" var="item">
 													<tr>
-														<td class="center">${item.id }</td>
-														<td class="center">
-																<c:forEach items="${item.imageEntities }" var ="image" end="0">
-																<img width="100" src="<c:url value="/resources-management/assets/img/${image.name}"/>"/>
-																	</c:forEach>
-																</td>
-														<td class="center">${item.name }</td>
-														<td class="center">${item.size }</td>
-														<td class="center">${item.bedInfo }</td>
-														<td class="center">${item.capacity }</td>
-														<td class="center">$${item.price }</td>
-														<td class="center">${item.createDate }</td>
-														<td class="center">${item.status }</td>
-														<td class="center">${item.description }</td>
+														<td class="center">${item.fullName }</td>
+														<td class="center">${item.phoneNumber }</td>
+														<td class="center">${item.email }</td>
+														<td class="center">${item.bookingDate }</td>
+														<td class="center">${item.checkIn }</td>
+														<td class="center">${item.checkOut }</td>
+														<td class="center"><span
+															class="label  label-success">${item.status }
+														</span></td>
+														
 														<td class="center"><a
-															href="updateCategory?id=${item.id }"
+															href="bookingDetail?id=${item.id }"
 															class="btn btn-tbl-edit btn-xs"> <i
 																class="fa fa-pencil"></i>
-														</a> <a href="deleteCategory?id=${item.id }"
-															class="btn btn-tbl-delete btn-xs"> <i
-																class="fa fa-trash-o "></i>
 														</a></td>
 													</tr>
 

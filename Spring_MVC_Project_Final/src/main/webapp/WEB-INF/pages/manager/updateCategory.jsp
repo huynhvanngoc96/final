@@ -64,7 +64,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="name"
-													id="txtRoomNo" />
+													/>
 												<spring:errors path="name" />
 												<label class="mdl-textfield__label">Room Name</label>
 											</div>
@@ -74,7 +74,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="size"
-													id="txtRoomNo" pattern="-?[0-9]*(\[0-9]+)?" />
+													 pattern="-?[0-9]*(\[0-9]+)?" />
 												<spring:errors path="size" />
 												<label class="mdl-textfield__label">Room Size</label> <span
 													class="mdl-textfield__error">Number required!</span>
@@ -85,7 +85,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="bedInfo"
-													id="txtRoomNo" />
+													 />
 												<spring:errors path="bedInfo" />
 												<label class="mdl-textfield__label">Type Bed</label>
 											</div>
@@ -94,7 +94,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="capacity"
-													id="txtRoomNo" />
+													 />
 												<spring:errors path="capacity" />
 												<label class="mdl-textfield__label">Capacity</label>
 											</div>
@@ -104,7 +104,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input cssClass="mdl-textfield__input" path="price"
-													id="txtRoomNo" pattern="-?[0-9]*(\.[0-9]+)?" />
+													 pattern="-?[0-9]*(\.[0-9]+)?" />
 												<spring:errors path="price" />
 												<label class="mdl-textfield__label">Price</label> <span
 													class="mdl-textfield__error">Number required!</span>

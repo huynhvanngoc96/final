@@ -22,16 +22,14 @@ public class ServiceBookingService {
 		return (List<ServiceBookingEntity>) serviceBookingRepository.findAll();
 	}
 	
-	public List<ServiceBookingEntity> findServiceBookingByBookingId(int id) {
-		return serviceBookingRepository.findServiceBookingByBookingId(id);
+	public List<ServiceBookingEntity> findByBookingDetailId(int id) {
+		return serviceBookingRepository.findByBookingDetailId(id);
 	}
 	
 	public ServiceBookingEntity findById(int id) {
 		return serviceBookingRepository.findById(id).orElse(null);
 	}
 
-	public List<ServiceBookingEntity> findByRoom(int id) {
-		
-		return serviceBookingRepository.findByRoom(id);
-	}
+
+	
 }

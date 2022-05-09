@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mycompany.spring_mvc_project_final.dto.RoomServiceDetailsDto;
 import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
@@ -122,8 +121,8 @@ public class HomeController {
 		model.addAttribute("message", "This is welcome page!");
 		List<String> roles = SecurityUtils.getRolesOfUser();
 		if (!CollectionUtils.isEmpty(roles)
-				&& (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_SELLER") || roles.contains("ROLE_MANAGER"))) {
-			return "redirect:/admin/home-management";
+				&& (roles.contains("ROLE_ADMIN") ||  roles.contains("ROLE_MANAGER"))) {
+			return "redirect:/manager/home-management";
 		}
 		return "home-management";
 	}
@@ -147,7 +146,7 @@ public class HomeController {
 
 		model.addAttribute("roomCategoryList", roomCategoryService.findAll());
 
-		return "admin/viewCategory";
+		return "manager/viewCategory";
 	}
 
 	@GetMapping("/searchCategory")
@@ -155,7 +154,7 @@ public class HomeController {
 
 		model.addAttribute("roomCategoryList", roomCategoryService.searchByName(search));
 
-		return "admin/viewCategory";
+		return "manager/viewCategory";
 	}
 
 	@GetMapping("/addCategory")
@@ -164,7 +163,7 @@ public class HomeController {
 		RoomCategoryEntity roomCategory = new RoomCategoryEntity();
 		model.addAttribute("roomCategory", roomCategory);
 
-		return "admin/addCategory";
+		return "manager/addCategory";
 	}
 
 	@PostMapping("/doAddCategory")
@@ -175,7 +174,7 @@ public class HomeController {
 			
 			model.addAttribute("roomCategoryList", roomCategoryService.findAll());
 			
-			return "admin/addCategory";
+			return "manager/addCategory";
 		} else {
 
 			if (roomCategory.getImages() != null && roomCategory.getImages().length > 0) {
@@ -188,7 +187,7 @@ public class HomeController {
 			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 			model.addAttribute("roomCategoryList", roomCategoryList);
 
-			return "admin/viewCategory";
+			return "manager/viewCategory";
 		}
 	}
 
@@ -200,7 +199,7 @@ public class HomeController {
 		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 		model.addAttribute("roomCategoryList", roomCategoryList);
 
-		return "admin/viewCategory";
+		return "manager/viewCategory";
 
 	}
 
@@ -211,7 +210,7 @@ public class HomeController {
 		if (opt_Category != null) {
 			model.addAttribute("roomCategory", opt_Category);
 
-			return "admin/updateCategory";
+			return "manager/updateCategory";
 		} else {
 			return "error";
 		}
@@ -225,7 +224,7 @@ public class HomeController {
 		if (rs.hasErrors()) {
 			List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 			model.addAttribute("roomCategoryList", roomCategoryList);
-			return "admin/updateCategory";
+			return "manager/updateCategory";
 
 		} else {
 			roomCategory.setImageEntities(
@@ -237,7 +236,7 @@ public class HomeController {
 		List<RoomCategoryEntity> roomCategoryList = roomCategoryService.findAll();
 		model.addAttribute("roomCategoryList", roomCategoryList);
 
-		return "admin/viewCategory";
+		return "manager/viewCategory";
 	}
 
 	@GetMapping("/deleteImageCategory/{id}/{categoryId}")
@@ -256,7 +255,7 @@ public class HomeController {
 		List<RoomEntity> roomList = roomService.findAll();
 		model.addAttribute("roomList", roomList);
 
-		return "admin/viewRoom";
+		return "manager/viewRoom";
 	}
 
 	@GetMapping("/addRoom")
@@ -266,7 +265,7 @@ public class HomeController {
 		model.addAttribute("room", new RoomEntity());
 		model.addAttribute("categoryList", roomCategoryService.findAll());
 		model.addAttribute("status", RoomStatus.values());
-		return "admin/addRoom";
+		return "manager/addRoom";
 	}
 
 	@PostMapping("/doAddRoom")
@@ -283,7 +282,7 @@ public class HomeController {
 		List<RoomEntity> roomList = roomService.findAll();
 		model.addAttribute("roomList", roomList);
 
-		return "admin/viewRoom";
+		return "manager/viewRoom";
 	}
 
 	// Service
@@ -293,7 +292,7 @@ public class HomeController {
 		List<ServiceEntity> serviceList = serviceService.findAll();
 		model.addAttribute("serviceList", serviceList);
 
-		return "admin/viewService";
+		return "manager/viewService";
 	}
 
 	@GetMapping("/addService")
@@ -301,7 +300,7 @@ public class HomeController {
 
 		model.addAttribute("service", new ServiceEntity());
 
-		return "admin/addService";
+		return "manager/addService";
 	}
 
 	@PostMapping("/doAddService")
@@ -311,7 +310,7 @@ public class HomeController {
 		if (rs.hasErrors()) {
 			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
-			return "admin/addCategory";
+			return "manager/addCategory";
 		} else {
 
 			if (service.getImages() != null && service.getImages().length > 0) {
@@ -323,7 +322,7 @@ public class HomeController {
 			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
 
-			return "admin/viewService";
+			return "manager/viewService";
 		}
 
 	}
@@ -336,7 +335,7 @@ public class HomeController {
 		List<ServiceEntity> serviceList = serviceService.findAll();
 		model.addAttribute("serviceList", serviceList);
 
-		return "admin/viewService";
+		return "manager/viewService";
 
 	}
 
@@ -347,7 +346,7 @@ public class HomeController {
 		if (opt_Service != null) {
 			model.addAttribute("service", opt_Service);
 
-			return "admin/updateService";
+			return "manager/updateService";
 		} else {
 			return "error";
 		}
@@ -361,7 +360,7 @@ public class HomeController {
 		if (rs.hasErrors()) {
 			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
-			return "admin/updateCategory";
+			return "manager/updateCategory";
 
 		} else {
 			service.setImageEntities(imageService.uploadImageService(service.getImages(), servletRequest, service));
@@ -372,7 +371,7 @@ public class HomeController {
 		List<ServiceEntity> serviceList = serviceService.findAll();
 		model.addAttribute("serviceList", serviceList);
 
-		return "admin/viewService";
+		return "manager/viewService";
 	}
 
 	@GetMapping("/deleteImageService/{id}/{serviceId}")
@@ -391,7 +390,7 @@ public class HomeController {
 		List<PromotionEntity> promotionList = promotionService.findAll();
 		model.addAttribute("promotionList", promotionList);
 
-		return "admin/viewPromotion";
+		return "manager/viewPromotion";
 	}
 
 	@GetMapping("/addPromotion")
@@ -399,7 +398,7 @@ public class HomeController {
 
 		model.addAttribute("promotion", new PromotionEntity());
 
-		return "admin/addPromotion";
+		return "manager/addPromotion";
 	}
 
 	@PostMapping("/doAddPromotion")
@@ -422,7 +421,7 @@ public class HomeController {
 			List<PromotionEntity> promotionList = promotionService.findAll();
 			model.addAttribute("promotionList", promotionList);
 
-			return "admin/viewPromotion";
+			return "manager/viewPromotion";
 		}
 	}
 
@@ -433,7 +432,7 @@ public class HomeController {
 		if (opt_Promotion != null) {
 			model.addAttribute("promotion", opt_Promotion);
 
-			return "admin/updatePromotion";
+			return "manager/updatePromotion";
 		} else {
 			return "error";
 		}
@@ -459,7 +458,7 @@ public class HomeController {
 		List<PromotionEntity> promotionList = promotionService.findAll();
 		model.addAttribute("promotionList", promotionList);
 
-		return "admin/viewPromotion";
+		return "manager/viewPromotion";
 	}
 
 	@GetMapping("/deleteImagePromotion/{id}/{promotionId}")
@@ -479,7 +478,7 @@ public class HomeController {
 		List<PromotionEntity> promotionList = promotionService.findAll();
 		model.addAttribute("promotionList", promotionList);
 
-		return "admin/viewPromotion";
+		return "manager/viewPromotion";
 
 	}
 
@@ -509,49 +508,63 @@ public class HomeController {
 
 	// Booking
 	@GetMapping("/viewBooking")
-	public String viewBooking(Model model, @ModelAttribute(name = "booking") BookingEntity booking) {
+	public String viewBooking(Model model) {
 
-		return "admin/bookingDetail";
+		List<BookingEntity> bookingList = bookingService.findAll();
+		model.addAttribute("bookingList", bookingList);
+		
+		return "manager/viewBooking";
 	}
 
-	@GetMapping("/searchBooking")
-	public String searchBooking(Model model, @RequestParam(name = "keyword") String keyword,
+	
+	@GetMapping("/bookingDetail")
+	public String bookingDetail(Model model, @RequestParam(name = "id") int id) throws Exception {
 
-			@ModelAttribute(name = "booking") BookingEntity booking) {
+		BookingEntity booking = bookingService.findById(id);
+		
+		List<BookingDetailEntity> bookingDetailList = bookingDetailsService.findByBookingId(id);
+		
+		List<ServiceBookingEntity> serviceBookinglList = new ArrayList<ServiceBookingEntity>();
+		
+		ServiceBookingEntity serviceBooking = new ServiceBookingEntity();
+		
+		for(int i = 0; i > serviceBookinglList.size(); i++) {
+			serviceBooking.setId(bookingDetailList.get(i).getId());
+		}
+		
+		if (booking != null) {
+			model.addAttribute("bookingDetailList", bookingDetailList);
+			/*
+			 * model.addAttribute("serviceBookinglList",
+			 * serviceBookingService.findByBookingDetailId(bookingDetailList.get(id).getId()
+			 * ));
+			 */
+			model.addAttribute("booking", booking);
 
-		if (keyword != "") {
-			
-			int id = Integer.parseInt(keyword);
-			List<BookingDetailEntity> bookingDetailList = bookingDetailsService. findBookingDetailsByBookingId(id);
-			 Optional<BookingEntity> opt_Booking = bookingService. findById(id);
-			 List<ServiceBookingEntity> serviceBookingList = serviceBookingService. findServiceBookingByBookingId(id);
-			 model. addAttribute("booking", opt_Booking);
-			 model. addAttribute("bookingDetailList", bookingDetailList);
-			 model. addAttribute("serviceBookingList", serviceBookingList);
-
+			return "manager/bookingDetail";
 		} else {
-			return "admin/bookingDetail";
+			return "error";
 		}
 
-		return "admin/bookingDetail";
 	}
+	
+	@GetMapping("/addServiceBooking")
+	public String addServiceBooking(Model model, @RequestParam(name = "id") int id) throws Exception {
 
-	@GetMapping("/addServiceBooking/{id}")
-	public String addServiceBooking(Model model, @PathVariable(name = "id") int id,
-			ServiceBookingEntity serviceBooking) {
-		System.err.println("id" + id);
-//		List<ServiceEntity> lstService = serviceService.findServiceByRoom(id);
-		List<ServiceBookingEntity> lstServiceBooking= serviceBookingService.findByRoom(id);
-		List<RoomServiceDetailsDto> roomServiceDetailsDtos = new ArrayList<RoomServiceDetailsDto>();
-		RoomServiceDetailsDto detailsDto = new RoomServiceDetailsDto();
-		for (int i= 0; i <= roomServiceDetailsDtos.size(); i ++) {
-//			detailsDto.setServiceName(lstService.get(i).getName());
-			detailsDto.setServiceBookingPrice(lstServiceBooking.get(i).getPrice());
-			detailsDto.setServiceBookingQuantity(lstServiceBooking.get(i).getQuantity());
-			roomServiceDetailsDtos.add(detailsDto);
+		BookingDetailEntity bookingDetail = bookingDetailsService.findbyId(id);
+		System.err.println("id: " + id);
+		
+		List<ServiceBookingEntity> serviceBookingList = serviceBookingService.findByBookingDetailId(id);
+		if (bookingDetail != null) {
+			model.addAttribute("serviceBookingList", serviceBookingList);
+			model.addAttribute("bookingDetail", bookingDetail);
+
+			System.err.println(serviceBookingList.size());
+			return "manager/addServiceBooking";
+		} else {
+			return "error";
 		}
-		model.addAttribute("roomServiceDetailsDtos",roomServiceDetailsDtos);
-		return "admin/serviceBooking";
+	
 	}
 
 }

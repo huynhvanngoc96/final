@@ -24,7 +24,11 @@ public class BookingDetailsService {
 		return (List<BookingDetailEntity>) bookingDetailsRepository.findAll();
 	}
 	
-	public List<BookingDetailEntity> findBookingDetailsByBookingId(int id) {
-		return bookingDetailsRepository.findBookingDetailsByBookingId(id);
+	public List<BookingDetailEntity> findByBookingId(int id) {
+		return bookingDetailsRepository.findByBookingId(id);
+	}
+	
+	public BookingDetailEntity findbyId(int id) {
+		return bookingDetailsRepository.findById(id).orElse(null);
 	}
 }

@@ -1,5 +1,5 @@
 package com.mycompany.spring_mvc_project_final.enums;
 
 public enum BookingStatus {
-	PAID, UNPAID;
+	BOOKED, CHECKIN, CHECKOUT, COMPLETED;
 }

@@ -32,7 +32,6 @@ public class BookingEntity extends Personal{
 	private int id;
 	
 	@Column(nullable = false)
-	@CreatedDate
 	private LocalDate bookingDate;
 	
 	@Column(nullable = false)

@@ -13,5 +13,5 @@ import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 public interface BookingDetailsRepository extends CrudRepository<BookingDetailEntity, Integer>{
 
 	@Query(value = "select *  from booking_detail  join booking on booking.id = booking_detail.booking_id	where booking.id = :id", nativeQuery = true)
-	public List<BookingDetailEntity> findBookingDetailsByBookingId(@Param(value = "id") int id);
+	public List<BookingDetailEntity> findByBookingId(@Param(value = "id") int id);
 }
