@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.spring_mvc_project_final.dto.RoomDto;
 import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
@@ -269,20 +270,22 @@ public class HomeController {
 	}
 
 	@PostMapping("/doAddRoom")
-	public String doAddRoom(@Valid @ModelAttribute(name = "room") RoomEntity room, BindingResult rs, Model model) {
+	public String doAddRoom(@Valid @ModelAttribute(name = "room") RoomDto room, BindingResult rs, Model model) {
 
 		if (rs.hasErrors()) {		
-			model.addAttribute("categoryList", roomCategoryService.findAll());
+			List<RoomCategoryEntity> categoryList =  roomCategoryService.findAll();
+			model.addAttribute("categoryList", categoryList);
 			model.addAttribute("roomList", room);
 			model.addAttribute("status", RoomStatus.values());
-			return "admin/addRoom";
+			return "redirect:/addRoom";
 		}
-		roomService.save(room);
+		
+//		roomService.save(room);
 		
 		List<RoomEntity> roomList = roomService.findAll();
 		model.addAttribute("roomList", roomList);
 
-		return "manager/viewRoom";
+		return "redirect:/viewRoom";
 	}
 
 	// Service
@@ -524,13 +527,15 @@ public class HomeController {
 		
 		List<BookingDetailEntity> bookingDetailList = bookingDetailsService.findByBookingId(id);
 		
-		List<ServiceBookingEntity> serviceBookinglList = new ArrayList<ServiceBookingEntity>();
-		
-		ServiceBookingEntity serviceBooking = new ServiceBookingEntity();
-		
-		for(int i = 0; i > serviceBookinglList.size(); i++) {
-			serviceBooking.setId(bookingDetailList.get(i).getId());
-		}
+		/*
+		 * List<ServiceBookingEntity> serviceBookinglList = new
+		 * ArrayList<ServiceBookingEntity>();
+		 * 
+		 * ServiceBookingEntity serviceBooking = new ServiceBookingEntity();
+		 * 
+		 * for(int i = 0; i > serviceBookinglList.size(); i++) {
+		 * serviceBooking.setId(bookingDetailList.get(i).getId()); }
+		 */
 		
 		if (booking != null) {
 			model.addAttribute("bookingDetailList", bookingDetailList);

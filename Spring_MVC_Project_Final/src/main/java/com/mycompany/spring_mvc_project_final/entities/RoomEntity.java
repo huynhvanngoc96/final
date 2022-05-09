@@ -39,7 +39,7 @@ public class RoomEntity implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "room_category_id")
-
+	@Valid
 	private RoomCategoryEntity roomCategory;
 	
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)

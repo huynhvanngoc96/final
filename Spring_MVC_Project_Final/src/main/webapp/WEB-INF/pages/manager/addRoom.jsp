@@ -84,13 +84,13 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<div class="form-group">
-													<spring:select path="roomCategory.id"
+													<spring:select path="id"
 														cssClass="form-control">
 														<spring:option value="0">Select</spring:option>
 														<spring:options items="${categoryList}" itemLabel="name"
 															itemValue="id" />
 													</spring:select>
-													<%-- <spring:errors path="roomCategory.id" /> --%>
+													<spring:errors path="id" />
 												</div>
 											</div>
 										</div>

@@ -36,7 +36,7 @@ public class RoomCategoryEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	/* @Min(value = 1, message = "You need select category") */
+	 @Min(value = 1, message = "You need select category") 
 	private Integer id;
 
 	@Column(nullable = false, length = 100)

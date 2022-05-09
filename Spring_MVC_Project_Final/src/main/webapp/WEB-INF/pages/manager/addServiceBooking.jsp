@@ -55,7 +55,8 @@
 											else here</li>
 									</ul>
 								</div>
-								<spring:form action="doAddServiceBooking" method="post" modelAttribute="bookingDetail">
+								<spring:form action="doAddServiceBooking" method="post"
+									modelAttribute="bookingDetail">
 									<div class="form-body">
 										<spring:hidden path="id" />
 
@@ -71,14 +72,14 @@
 										<div class="col-lg-2 col-md-2 col-sm-2 col-2">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input"
-													path="" readonly="true" />
+												<spring:input class="mdl-textfield__input" path=""
+													readonly="true" />
 
 												<label class="mdl-textfield__label">Room Number</label>
 											</div>
 										</div>
 
-										
+
 										<div class="table-scrollable">
 											<table
 												class="table table-hover table-checkable order-column full-width"
@@ -100,14 +101,20 @@
 															<td class="center"><a
 																href="removeService?id=${item.id }">
 																	<button type="button" class="btn btn-primary">Remove</button>
-															</a> </td>
+															</a></td>
 														</tr>
 
 													</c:forEach>
 												</tbody>
 											</table>
 										</div>
-
+										<div class="col-md-6 col-sm-6 col-6">
+											<div class="btn-group">
+												<a href="addServiceforBooking" id="addRow" class="btn btn-info">
+													Add New <i class="fa fa-plus"></i>
+												</a>
+											</div>
+										</div>
 										<div class="col-lg-12 p-t-20 text-center">
 											<input type="submit" value="Save"
 												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
@@ -127,6 +134,6 @@
 		</div>
 		<jsp:include page="/WEB-INF/pages/include/management/footer-page.jsp"></jsp:include>
 	</div>
-	
+
 </body>
 </html>

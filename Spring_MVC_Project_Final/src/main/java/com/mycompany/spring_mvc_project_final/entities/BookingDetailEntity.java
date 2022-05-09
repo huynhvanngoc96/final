@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,8 +38,8 @@ public class BookingDetailEntity implements Serializable {
 	@JoinColumn(name = "booking_id")
 	private BookingEntity booking;
 	
-	@OneToMany(mappedBy = "bookingDetail", cascade = CascadeType.ALL)
-	private List<ServiceBookingEntity> serviceBooking;
+	@OneToMany(mappedBy = "bookingDetail", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<ServiceBookingEntity> serviceBookings;
 	
 	@OneToMany(mappedBy = "bookingDetail", cascade = CascadeType.ALL)
 	private List<GuestEntity> guest;
@@ -87,12 +88,14 @@ public class BookingDetailEntity implements Serializable {
 		this.guest = guest;
 	}
 
-	public List<ServiceBookingEntity> getServiceBooking() {
-		return serviceBooking;
+	
+
+	public List<ServiceBookingEntity> getServiceBookings() {
+		return serviceBookings;
 	}
 
-	public void setServiceBooking(List<ServiceBookingEntity> serviceBooking) {
-		this.serviceBooking = serviceBooking;
+	public void setServiceBookings(List<ServiceBookingEntity> serviceBookings) {
+		this.serviceBookings = serviceBookings;
 	}
 
 	public RoomEntity getRoom() {

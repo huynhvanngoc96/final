@@ -155,9 +155,9 @@
 															<td class="center">$${item.room.roomCategory.price }</td>
 															<td class="center">${item.room.roomCategory.name }</td>
 
-															<td class="center"><c:forEach
-																	items="${bookingDetailList.serviceBooking }" var="sv">${sv.service.name }  </c:forEach>
-															</td>
+																<td class="center"><c:forEach
+																		items="${item.serviceBookings }" var="sv">${sv.service.name }  </c:forEach>
+																</td>
 															<td class="center"><a
 																href="addServiceBooking?id=${item.id }">
 																	<button type="button" class="btn btn-primary">Add
