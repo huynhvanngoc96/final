@@ -159,10 +159,10 @@
 																		items="${item.serviceBookings }" var="sv">${sv.service.name }  </c:forEach>
 																</td>
 															<td class="center"><a
-																href="addServiceBooking?id=${item.id }">
+																href="ServiceBooking?id=${item.id }">
 																	<button type="button" class="btn btn-primary">Add
 																		Service</button>
-															</a> <a href="addGuest?id=${item.id }">
+															</a> <a href="Guest?id=${item.id }">
 																	<button type="button" class="btn btn-success">Add
 																		Guest</button>
 															</a></td>
@@ -175,11 +175,10 @@
 										</div>
 
 										<div class="col-lg-12 p-t-20 text-center">
-											<input type="submit" value="Save"
-												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
+											
 											<a href="viewBooking">
 												<button type="button"
-													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Return Booking View</button>
 											</a>
 										</div>
 									</div>

@@ -14,10 +14,10 @@
 	                            <div class="user-panel">
 	                                <div class="row">
                                             <div class="sidebar-userpic">
-                                                <img src="<c:url value="resources-management/assets/img/dp.jpg"/>" class="img-responsive" alt=""> </div>
+                                                <img src="<c:url value="/resources-management/assets/img/person_3.jpg"/>" class="img-responsive" alt=""> </div>
                                         </div>
                                         <div class="profile-usertitle">
-                                            <div class="sidebar-userpic-name"> John Deo </div>
+                                            <div class="sidebar-userpic-name"></div>
                                             <div class="profile-usertitle-job"> Manager </div>
                                         </div>
                                         <div class="sidebar-userpic-btn">
@@ -30,7 +30,7 @@
 									        <a class="tooltips" href="chat.html" data-placement="top" data-original-title="Chat">
 									        	<i class="material-icons">chat</i>
 									        </a>
-									        <a class="tooltips" href="login.html" data-placement="top" data-original-title="Logout">
+									        <a class="tooltips" href="logout" data-placement="top" data-original-title="Logout">
 									        	<i class="material-icons">input</i>
 									        </a>
 									    </div>
@@ -39,7 +39,7 @@
 	                        <li class="menu-heading">
 			                	<span>-- Main</span>
 			                </li>
-	                        <li class="nav-item start active">
+	                        <!-- <li class="nav-item start active">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">dashboard</i>
 	                                <span class="title">Dashboard</span>
@@ -59,17 +59,19 @@
 	                                    </a>
 	                                </li>
 	                            </ul>
-	                        </li>
-	                        <li class="nav-item">
+	                        </li> -->
+	                        <li class="nav-item start active">
 	                            <a href="#" class="nav-link nav-toggle">
 	                                <i class="material-icons">business_center</i>
 	                                <span class="title">Booking</span>
-	                                <span class="arrow"></span>
+	                                <span class="selected"></span>
+	                                <span class="arrow open"></span>
 	                            </a>
 	                            <ul class="sub-menu">
-	                                <li class="nav-item">
+	                                <li class="nav-item active">
 	                                    <a href="viewBooking" class="nav-link ">
 	                                        <span class="title">View Booking</span>
+	                                        <span class="selected"></span>
 	                                    </a>
 	                                </li>
 	                                

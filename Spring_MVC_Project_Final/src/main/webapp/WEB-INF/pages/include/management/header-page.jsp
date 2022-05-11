@@ -5,9 +5,9 @@
 	<div class="page-header-inner ">
 		<!-- logo start -->
 		<div class="page-logo">
-			<a href="index.html"> <img alt=""
-				src="<c:url value="resources-management/assets/img/logo.png"/>">
-				<span class="logo-default">Spice</span>
+			<a href="index.html"> <img alt="" width="40"
+				src="<c:url value="/resources-management/assets/img/logo-big.png"/>">
+				<span class="logo-default">Management</span>
 			</a>
 		</div>
 		<!-- logo end -->
@@ -15,17 +15,6 @@
 			<li><a href="#" class="menu-toggler sidebar-toggler"><i
 					class="icon-menu"></i></a></li>
 		</ul>
-		<!-- <form class="search-form-opened" action="#" method="GET">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search..."
-					name="query"> <span class="input-group-btn search-btn">
-					<a href="javascript:;" class="btn submit"> <i
-						class="icon-magnifier"></i>
-				</a>
-				</span>
-			</div>
-		</form> -->
-
 		<!-- start mobile menu -->
 		<a href="javascript:;" class="menu-toggler responsive-toggler"
 			data-toggle="collapse" data-target=".navbar-collapse"> <span></span>
@@ -41,8 +30,8 @@
 				<li class="dropdown dropdown-user"><a href="javascript:;"
 					class="dropdown-toggle" data-toggle="dropdown"
 					data-hover="dropdown" data-close-others="true"> <img alt=""
-						class="img-circle " src="assets/img/dp.jpg" /> <span
-						class="username username-hide-on-mobile"> John </span> <i
+						class="img-circle " src="<c:url value="/resources-management/assets/img/person_3.jpg"/> "/> <span
+						class="username username-hide-on-mobile"> Manager </span> <i
 						class="fa fa-angle-down"></i>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-default animated jello">

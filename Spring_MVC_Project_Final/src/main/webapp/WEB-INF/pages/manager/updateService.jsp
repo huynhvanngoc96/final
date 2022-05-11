@@ -113,8 +113,8 @@
 											</div>
 										</div>
 
-										<label class="control-label col-md-3">Upload Room
-											Photos</label>
+										<!-- <label class="control-label col-md-3">Upload Room
+											Photos</label> -->
 										<div class="col-lg-12 p-t-20">
 											<spring:input path="images" type="file" multiple="multiple"
 												cssClass="dropzone" />

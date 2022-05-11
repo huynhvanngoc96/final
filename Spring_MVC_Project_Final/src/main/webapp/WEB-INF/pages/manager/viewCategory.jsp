@@ -12,6 +12,7 @@
 </head>
 <body
 	class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
+	
 	<div class="page-wrapper">
 		<jsp:include page="/WEB-INF/pages/include/management/header-page.jsp"></jsp:include>
 

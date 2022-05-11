@@ -59,11 +59,11 @@
 									modelAttribute="bookingDetail">
 									<div class="form-body">
 										<spring:hidden path="id" />
-
+										<spring:hidden path="booking.id" />
 										<div class="col-lg-2 col-md-2 col-sm-2 col-2">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path=""
+												<spring:input class="mdl-textfield__input" path="booking.id"
 													readonly="true" />
 
 												<label class="mdl-textfield__label">Booking Number</label>
@@ -72,68 +72,108 @@
 										<div class="col-lg-2 col-md-2 col-sm-2 col-2">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path=""
-													readonly="true" />
+												<spring:input class="mdl-textfield__input"
+													path="room.roomNumber" readonly="true" />
 
 												<label class="mdl-textfield__label">Room Number</label>
 											</div>
 										</div>
+									</div>
+								</spring:form>
 
+								<div class="card-body row">
+									<div class="col-lg-2">
+										<button id="btn" class="btn btn-info">Add New</button>
+									</div>
 
-										<div class="table-scrollable">
-											<table
-												class="table table-hover table-checkable order-column full-width"
-												id="example4">
-												<thead>
-													<tr>
-														<th class="center">Name</th>
-														<th class="center">Price</th>
-														<th class="center">Quantity</th>
-														<th class="center">Action</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${serviceBookingList }" var="item">
-														<tr>
-															<td class="center">${item.service.name }</td>
-															<td class="center">$${item.price }</td>
-															<td class="center">${item.quantity }</td>
-															<td class="center"><a
-																href="removeService?id=${item.id }">
-																	<button type="button" class="btn btn-primary">Remove</button>
-															</a></td>
-														</tr>
+									<div id="formService" class="col-lg-2">
+										<spring:form action="doAddServiceBooking" method="post"
+											modelAttribute="serviceBooking">
 
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-										<div class="col-md-6 col-sm-6 col-6">
-											<div class="btn-group">
+											<spring:select path="service.id" cssClass="form-control">
+												<spring:option value="0">Select</spring:option>
+												<spring:options items="${serviceList}" itemLabel="name"
+													itemValue="id" />
+											</spring:select>
+											
+											<spring:input path="quantity" />
+											<input type="submit" value="Add"
+												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
+										</spring:form>
+									</div>
+								</div>
+								<div class="table-scrollable">
+									<table
+										class="table table-hover table-checkable order-column full-width"
+										id="example4">
+										<thead>
+											<tr>
+												<th class="center">Name</th>
+												<th class="center">Price</th>
+												<th class="center">Quantity</th>
+												<th class="center">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${serviceBookingList }" var="item">
+												<tr>
+													<td class="center">${item.service.name }</td>
+													<td class="center">$${item.price }</td>
+													<td class="center">${item.quantity }</td>
+													<td class="center"><a
+														href="deleteServiceInServiceBooking?id=${item.id }&bookingDetailId=${bookingDetail.id}">
+															<button type="button" class="btn btn-primary">Remove</button>
+													</a></td>
+												</tr>
+
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-md-6 col-sm-6 col-6">
+									<!-- <div class="btn-group">
 												<a href="addServiceforBooking" id="addRow" class="btn btn-info">
 													Add New <i class="fa fa-plus"></i>
 												</a>
-											</div>
-										</div>
-										<div class="col-lg-12 p-t-20 text-center">
-											<input type="submit" value="Save"
-												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
-											<a href="viewBooking">
-												<button type="button"
-													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
-											</a>
-										</div>
-									</div>
-								</spring:form>
+											</div> -->
+								</div>
+								<div class="col-lg-12 p-t-20 text-center">
+									<a href="bookingDetail?id=${bookingDetail.id }">
+										<button type="button"
+											class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+									</a>
+								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- end page content -->
 		</div>
-		<jsp:include page="/WEB-INF/pages/include/management/footer-page.jsp"></jsp:include>
+		<!-- end page content -->
 	</div>
+	<jsp:include page="/WEB-INF/pages/include/management/footer-page.jsp"></jsp:include>
+
 
 </body>
+<script type="text/javascript">
+
+const btn = document.getElementById('btn');
+
+const form = document.getElementById('formService');
+
+form.style.display = 'none'
+
+btn.addEventListener('click', () => {
+   
+  if (form.style.display === 'none') {
+    // this SHOWS the form
+    form.style.display = 'block';
+  } else {
+    // this HIDES the form
+    form.style.display = 'none';
+  }
+});
+</script>
+
 </html>
