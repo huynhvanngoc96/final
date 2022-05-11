@@ -35,4 +35,7 @@ public class ServiceBookingService {
 		serviceBookingRepository.deleteById(id);
 	}
 	
+	public Optional<ServiceBookingEntity> findByBookingDetailAndService(int bdId, int serviceId) {
+		return serviceBookingRepository.findByBookingDetailAndService(bdId, serviceId);
+	}
 }

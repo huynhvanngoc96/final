@@ -87,7 +87,7 @@
 									</div>
 
 									<div id="formService" class="col-lg-2">
-										<spring:form action="doAddServiceBooking" method="post"
+										<spring:form action="doAddServiceBooking?bookingDetailId=${bookingDetail.id}" method="post"
 											modelAttribute="serviceBooking">
 
 											<spring:select path="service.id" cssClass="form-control">

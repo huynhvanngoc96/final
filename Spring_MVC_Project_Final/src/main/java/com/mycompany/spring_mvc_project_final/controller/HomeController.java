@@ -137,7 +137,7 @@ public class HomeController {
 	public String logout() {
 		
 		
-		return "login";
+		return "home";
 	}
 
 	@RequestMapping("/error")

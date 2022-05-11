@@ -83,20 +83,19 @@ public class ManagerController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-  @RequestMapping("/home")
-  public String viewHome(Model model) {
+	@RequestMapping("/home")
+	public String viewHome(Model model) {
 
-      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      String username = principal.toString();
-      if (principal instanceof UserDetails) {
-          username = ((UserDetails) principal).getUsername();
-      }
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = principal.toString();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		}
 
-      model.addAttribute("message",  username);
-      
-      return "home-management";
-  }
+		model.addAttribute("message", username);
 
+		return "home-management";
+	}
 
 	// Room Category
 	@GetMapping("/viewCategory")
@@ -426,7 +425,7 @@ public class ManagerController {
 
 		imageService.deleteImgPromotion(promotionId, id);
 
-		return "redirect:/updatePromotion?id=" + promotionId;
+		return "redirect:/manager/updatePromotion?id=" + promotionId;
 	}
 
 	@GetMapping("/deletePromotion")
@@ -488,18 +487,38 @@ public class ManagerController {
 
 	}
 
+	/**
+	 * @param model
+	 * @param serviceBooking
+	 * @param bookingDetailId
+	 * @return
+	 */
 	@PostMapping("/doAddServiceBooking")
-	public String addServicebooking(Model model, @ModelAttribute(name = "serviceBooking") ServiceBookingEntity serviceBooking) {
-		
-		int total = (int) (serviceBooking.getQuantity() * serviceBooking.getService().getPrice());
-		
-		serviceBooking.setPrice(total);
-		serviceBooking.setServiceBookingDate(LocalDate.now());
-		serviceBookingService.save(serviceBooking);
-		
-		return "manager/addServiceBooking";
+	public String addServicebooking(Model model,
+			@ModelAttribute(name = "serviceBooking") ServiceBookingEntity serviceBooking,
+			@RequestParam(name = "bookingDetailId") int bookingDetailId) {
+		if (serviceBooking != null && serviceBooking.getService() != null
+				&& serviceBooking.getService().getId() != null) {
+			ServiceBookingEntity sb = null;
+			Optional<ServiceBookingEntity> sbOpt = serviceBookingService.findByBookingDetailAndService(bookingDetailId, serviceBooking.getService().getId());
+			if (sbOpt.isPresent()) {
+				sb = sbOpt.get();
+				sb.setQuantity(serviceBooking.getQuantity());
+				sb.setPrice((int) (serviceBooking.getQuantity() * sb.getService().getPrice()));
+			} else {
+				ServiceEntity service = serviceService.findById(serviceBooking.getService().getId());
+				if (service != null) {
+					sb = new ServiceBookingEntity();
+					sb.setPrice((int) (serviceBooking.getQuantity() * service.getPrice()));
+					sb.setServiceBookingDate(LocalDate.now());
+					sb.setService(service);
+					sb.setBookingDetail(bookingDetailsService.findbyId(bookingDetailId));
+				}
+			}
+			serviceBookingService.save(sb);
+		}
+		return "redirect:/manager/ServiceBooking?id=" + bookingDetailId;
 	}
-	
 
 	@GetMapping("/deleteServiceInServiceBooking")
 	public String deleteServiceInServiceBooking(Model model, @RequestParam(name = "id") int id,
@@ -507,7 +526,7 @@ public class ManagerController {
 
 		bookingDetailsService.deleteServiceBooking(id, bookingDetailId);
 
-		return "redirect:/ServiceBooking?id=" + bookingDetailId;
+		return "redirect:/manager/ServiceBooking?id=" + bookingDetailId;
 
 	}
 

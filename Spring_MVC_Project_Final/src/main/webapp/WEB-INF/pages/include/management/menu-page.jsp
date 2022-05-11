@@ -30,7 +30,7 @@
 									        <a class="tooltips" href="chat.html" data-placement="top" data-original-title="Chat">
 									        	<i class="material-icons">chat</i>
 									        </a>
-									        <a class="tooltips" href="logout" data-placement="top" data-original-title="Logout">
+									        <a class="tooltips" href="<c:url value="/logout" />" data-placement="top" data-original-title="Logout">
 									        	<i class="material-icons">input</i>
 									        </a>
 									    </div>
