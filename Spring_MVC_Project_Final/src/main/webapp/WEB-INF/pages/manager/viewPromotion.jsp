@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>View Promotion</title>
 <jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
 <jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
 </head>
@@ -76,15 +76,26 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="row p-b-20">
+										<div class="col-sm-6 col-md-6">
+											<div>
+												<form action="searchPromotion" method="get">
+													<input type="text" name="search"> <input
+														type="submit" value="Search">
+												</form>
+											</div>
+										</div>
+									</div>
+									
 									<div class="table-scrollable">
 										<table
 											class="table table-hover table-checkable order-column full-width"
 											id="example4">
 											<thead>
 												<tr>
-													<th class="center">Id</th>
-													<th class="center">Name</th>
 													<th class="center">Image</th>
+													<th class="center">Name</th>
 													<th class="center">Discount</th>
 													<th class="center">Start Date</th>
 													<th class="center">End Date</th>
@@ -96,23 +107,22 @@
 											<tbody>
 												<c:forEach items="${promotionList }" var="item">
 													<tr>
-														<td class="center">${item.id }</td>
-														<td class="center">${item.name }</td>
 														<td class="center"><c:forEach
 																items="${item.imageEntities }" var="image" end="0">
 																<img width="100"
 																	src="<c:url value="/resources-management/assets/img/${image.name}"/>" />
 															</c:forEach></td>
-														<td class="center">${item.discount }</td>
+														<td class="center">${item.name }</td>
+														<td class="center">${item.discount }%</td>
 														<td class="center">${item.startDate }</td>
 														<td class="center">${item.endDate }</td>
 														<td class="center">${item.createDate }</td>
 														<td class="center">${item.description }</td>
 														<td class="center"><a
-															href="updateCategory?id=${item.id }"
+															href="updatePromotion?id=${item.id }"
 															class="btn btn-tbl-edit btn-xs"> <i
 																class="fa fa-pencil"></i>
-														</a> <a href="deleteCategory?id=${item.id }"
+														</a> <a href="deletePromotion?id=${item.id }"
 															class="btn btn-tbl-delete btn-xs"> <i
 																class="fa fa-trash-o "></i>
 														</a></td>

@@ -6,32 +6,32 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add Category</title>
-<jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
-<jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
+<title>Edit Account</title>
+<jsp:include page="/WEB-INF/pages/include/admin/css-page.jsp" />
+<jsp:include page="/WEB-INF/pages/include/admin/js-page.jsp" />
 </head>
 <body
 	class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
 	<div class="page-wrapper">
-		<jsp:include page="/WEB-INF/pages/include/management/header-page.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/pages/include/admin/header-page.jsp"></jsp:include>
 
 		<div class="page-container">
-			<jsp:include page="/WEB-INF/pages/include/management/menu-page.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/pages/include/admin/menu-page.jsp"></jsp:include>
 			<!-- start page content -->
 			<div class="page-content-wrapper">
 				<div class="page-content">
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Edit Room Category</div>
+								<div class="page-title">Edit Account</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Room Category</a>&nbsp;<i
+								<li><a class="parent-item" href="">Manage Account</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">Edit Room Category</li>
+								<li class="active">Edit Account</li>
 							</ol>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 						<div class="col-sm-12">
 							<div class="card-box">
 								<div class="card-head">
-									<header>Edit Room Category</header>
+									<header>Edit Account</header>
 									<button id="panel-button"
 										class="mdl-button mdl-js-button mdl-button--icon pull-right"
 										data-upgraded=",MaterialButton">
@@ -55,59 +55,80 @@
 											else here</li>
 									</ul>
 								</div>
-								<spring:form action="doUpdateCategory" method="post"
-									modelAttribute="roomCategory" enctype="multipart/form-data">
+								<spring:form action="doUpdateAccount" method="post"
+									modelAttribute="user">
 									<div class="card-body row">
-										<spring:hidden path="id" />
-										<spring:hidden path="createDate" />
+										<spring:input path="id" hidden="true"/>
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="name"
-													/>
-												<spring:errors path="name" cssStyle="color: red"/>
-												<label class="mdl-textfield__label">Room Name</label>
+												<spring:input class="mdl-textfield__input" path="fullName" />
+												<spring:errors path="fullName" cssStyle="color: red" />
+												<label class="mdl-textfield__label">Name</label>
 											</div>
 										</div>
 
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="size"
-													 pattern="-?[0-9]*(\[0-9]+)?" />
-												<spring:errors path="size" cssStyle="color: red"/>
-												<label class="mdl-textfield__label">Room Size</label> <span
-													class="mdl-textfield__error">Number required!</span>
+												<spring:input class="mdl-textfield__input" path="email"
+													type="email" />
+												<spring:errors path="email" />
+												<label class="mdl-textfield__label">Email</label>
 											</div>
 										</div>
 
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="bedInfo"
-													 />
-												<spring:errors path="bedInfo" cssStyle="color: red"/>
-												<label class="mdl-textfield__label">Type Bed</label>
-											</div>
-										</div>
-										<div class="col-lg-6 p-t-20">
-											<div
-												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="capacity"
-													 />
-												<spring:errors path="capacity" cssStyle="color: red"/>
-												<label class="mdl-textfield__label">Capacity</label>
+												<spring:input class="mdl-textfield__input" path="password"
+													type="password" />
+
+												<label class="mdl-textfield__label">Password</label>
 											</div>
 										</div>
 
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input cssClass="mdl-textfield__input" path="price"
-													 pattern="-?[0-9]*(\.[0-9]+)?" />
-												<spring:errors path="price" cssStyle="color: red"/>
-												<label class="mdl-textfield__label">Price</label> <span
-													class="mdl-textfield__error">Number required!</span>
+												<spring:input class="mdl-textfield__input"
+													path="phoneNumber" />
+
+												<label class="mdl-textfield__label">Phone Number</label>
+											</div>
+										</div>
+
+										<div class="col-lg-6 p-t-20">
+											<div
+												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+												<spring:input class="mdl-textfield__input" path="address" />
+
+												<label class="mdl-textfield__label">Address</label>
+											</div>
+										</div>
+
+										<div class="col-lg-6 p-t-20">
+											<div
+												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+												<spring:input path="birthDate" id="date"
+													class="floating-label mdl-textfield__input"
+													placeholder="BirthDay" />
+													<spring:errors path="birthDate" cssStyle="color: red" />
+											</div>
+										</div>
+
+										<div class="col-lg-6 p-t-20">
+											<div
+												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+												<div class="form-group">
+													<spring:select path="gender" cssClass="form-control">
+														<spring:option value="">Select</spring:option>
+														<spring:option value="Male">Male</spring:option>
+														<spring:option value="Female">Female</spring:option>
+														<spring:option value="Other">Other</spring:option>
+													</spring:select>
+
+												</div>
 											</div>
 										</div>
 
@@ -119,45 +140,16 @@
 														<spring:option value="">Select</spring:option>
 														<spring:options items="${status}" />
 													</spring:select>
-													<spring:errors path="status" cssStyle="color: red"/>
+													<spring:errors path="status" />
 												</div>
 											</div>
 										</div>
 
-										<label class="control-label col-md-3">Upload Room
-											Photos</label>
-										<div class="col-lg-12 p-t-20">
-											<spring:input path="images" type="file" multiple="multiple"
-												cssClass="dropzone" />
-										</div>
-										
-										<div class="col-lg-12 p-t-20"  >	
-											<c:forEach items="${roomCategory.imageEntities }" var="item">
 
-													<img class="img-thumbnail" width = "300"
-													src="<c:url value="/resources-management/assets/img/${item.name}"/>" />
-												
-												
-												<a href="deleteImageCategory/${item.id }/${roomCategory.id}"
-													class="btn btn-tbl-delete btn-xs"> <i
-													class="fa fa-trash-o "></i>
-												</a>
-												
-											</c:forEach>
-
-										</div>
-										<div class="col-lg-12 p-t-20">
-											<div class="mdl-textfield mdl-js-textfield txt-full-width">
-												<spring:textarea path="description"
-													cssClass="mdl-textfield__input" rows="3" id="education" />
-												<spring:errors path="description" cssStyle="color: red"/>
-												<label class="mdl-textfield__label" for="text7">Description</label>
-											</div>
-										</div>
 										<div class="col-lg-12 p-t-20 text-center">
 											<input type="submit" value="Save"
 												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
-											<a href="viewCategory">
+											<a href="viewAccount">
 												<button type="button"
 													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
 											</a>
@@ -173,6 +165,7 @@
 
 
 		</div>
+		<jsp:include page="/WEB-INF/pages/include/admin/footer-page.jsp"></jsp:include>
 	</div>
 </body>
 </html>

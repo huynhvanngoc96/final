@@ -71,7 +71,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<div class="form-group">
 													<spring:select path="status" cssClass="form-control">
-														<spring:option value=""></spring:option>
+														<spring:option value="">Select</spring:option>
 														<c:forEach items="${status}" var="stt">
 															<spring:option value="${stt}">${stt}</spring:option>
 														</c:forEach>
@@ -84,13 +84,13 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<div class="form-group">
-													<spring:select path="id"
+													<spring:select path="roomCategory.id"
 														cssClass="form-control">
 														<spring:option value="0">Select</spring:option>
 														<spring:options items="${categoryList}" itemLabel="name"
 															itemValue="id" />
 													</spring:select>
-													<spring:errors path="id" />
+													
 												</div>
 											</div>
 										</div>

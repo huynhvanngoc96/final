@@ -18,28 +18,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.spring_mvc_project_final.dto.RoomDto;
 import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
 import com.mycompany.spring_mvc_project_final.entities.BookingEntity;
+import com.mycompany.spring_mvc_project_final.entities.GuestEntity;
 import com.mycompany.spring_mvc_project_final.entities.PromotionEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceBookingEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
-import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 import com.mycompany.spring_mvc_project_final.enums.RoomStatus;
 import com.mycompany.spring_mvc_project_final.service.BookingDetailsService;
 import com.mycompany.spring_mvc_project_final.service.BookingService;
+import com.mycompany.spring_mvc_project_final.service.GuestService;
 import com.mycompany.spring_mvc_project_final.service.ImageService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.service.RoomCategoryService;
@@ -47,7 +46,6 @@ import com.mycompany.spring_mvc_project_final.service.RoomService;
 import com.mycompany.spring_mvc_project_final.service.ServiceBookingService;
 import com.mycompany.spring_mvc_project_final.service.ServiceService;
 import com.mycompany.spring_mvc_project_final.service.UserDetailsServiceImpl;
-import com.mycompany.spring_mvc_project_final.utils.SecurityUtils;
 
 @Controller
 @RequestMapping("/manager")
@@ -81,7 +79,8 @@ public class ManagerController {
 	ServiceBookingService serviceBookingService;
 
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	GuestService guestService;
+
 
 	@RequestMapping("/home")
 	public String viewHome(Model model) {
@@ -225,22 +224,15 @@ public class ManagerController {
 	}
 
 	@PostMapping("/doAddRoom")
-	public String doAddRoom(@Valid @ModelAttribute(name = "room") RoomDto room, BindingResult rs, Model model) {
+	public String doAddRoom(@ModelAttribute(name = "room") RoomEntity room, Model model) {
 
-		if (rs.hasErrors()) {
-			List<RoomCategoryEntity> categoryList = roomCategoryService.findAll();
-			model.addAttribute("categoryList", categoryList);
-			model.addAttribute("roomList", room);
-			model.addAttribute("status", RoomStatus.values());
-			return "redirect:/addRoom";
-		}
 
-//		roomService.save(room);
+		roomService.save(room);
 
 		List<RoomEntity> roomList = roomService.findAll();
 		model.addAttribute("roomList", roomList);
 
-		return "redirect:/viewRoom";
+		return "manager/viewRoom";
 	}
 
 	// Service
@@ -253,6 +245,14 @@ public class ManagerController {
 		return "manager/viewService";
 	}
 
+	@GetMapping("/searchService")
+	public String searchService(Model model, @RequestParam(value = "search") String search) {
+
+		model.addAttribute("serviceList", serviceService.searchByName(search));
+
+		return "manager/viewService";
+	}
+	
 	@GetMapping("/addService")
 	public String addService(Model model) {
 
@@ -268,7 +268,7 @@ public class ManagerController {
 		if (rs.hasErrors()) {
 			List<ServiceEntity> serviceList = serviceService.findAll();
 			model.addAttribute("serviceList", serviceList);
-			return "manager/addCategory";
+			return "manager/addService";
 		} else {
 
 			if (service.getImages() != null && service.getImages().length > 0) {
@@ -285,17 +285,6 @@ public class ManagerController {
 
 	}
 
-	@GetMapping("/deleteService")
-	public String deleteService(Model model, @RequestParam(name = "id") int id) {
-
-		serviceService.deleteById(id);
-
-		List<ServiceEntity> serviceList = serviceService.findAll();
-		model.addAttribute("serviceList", serviceList);
-
-		return "manager/viewService";
-
-	}
 
 	@GetMapping("/updateService")
 	public String updateService(Model model, @RequestParam(name = "id") int id) throws Exception {
@@ -338,7 +327,7 @@ public class ManagerController {
 
 		imageService.deleteImgService(serviceId, id);
 
-		return "redirect:/updateService?id=" + serviceId;
+		return "redirect:/manager/updateService?id=" + serviceId;
 	}
 
 	// Promotion
@@ -347,6 +336,14 @@ public class ManagerController {
 
 		List<PromotionEntity> promotionList = promotionService.findAll();
 		model.addAttribute("promotionList", promotionList);
+
+		return "manager/viewPromotion";
+	}
+	
+	@GetMapping("/searchPromotion")
+	public String searchPromotion(Model model, @RequestParam(value = "search") String search) {
+
+		model.addAttribute("promotionList", promotionService.searchByName(search));
 
 		return "manager/viewPromotion";
 	}
@@ -366,7 +363,7 @@ public class ManagerController {
 		if (rs.hasErrors()) {
 			List<PromotionEntity> promotionList = promotionService.findAll();
 			model.addAttribute("promotionList", promotionList);
-			return "admin/addPromotion";
+			return "manager/addPromotion";
 		} else {
 
 			if (promotion.getImages() != null && promotion.getImages().length > 0) {
@@ -386,7 +383,7 @@ public class ManagerController {
 	@GetMapping("/updatePromotion")
 	public String updatePromotion(Model model, @RequestParam(name = "id") int id) throws Exception {
 
-		Optional<PromotionEntity> opt_Promotion = promotionService.findById(id);
+		PromotionEntity opt_Promotion = promotionService.findById(id);
 		if (opt_Promotion != null) {
 			model.addAttribute("promotion", opt_Promotion);
 
@@ -404,7 +401,7 @@ public class ManagerController {
 		if (rs.hasErrors()) {
 			List<PromotionEntity> promotionList = promotionService.findAll();
 			model.addAttribute("promotionList", promotionList);
-			return "admin/updatePromotion";
+			return "manager/updatePromotion";
 
 		} else {
 			promotion.setImageEntities(
@@ -449,6 +446,14 @@ public class ManagerController {
 
 		return "manager/viewBooking";
 	}
+	
+	@GetMapping("/searchBooking")
+	public String searchBooking(Model model, @RequestParam(value = "search") String search) {
+
+		model.addAttribute("bookingList", bookingService.searchByName(search));
+
+		return "manager/viewBooking";
+	}
 
 	@GetMapping("/bookingDetail")
 	public String bookingDetail(Model model, @RequestParam(name = "id") int id) throws Exception {
@@ -469,8 +474,27 @@ public class ManagerController {
 
 	}
 
-	@GetMapping("/ServiceBooking")
-	public String ServiceBooking(Model model, @RequestParam(name = "id") int id) throws Exception {
+	@PostMapping("/saveBookingDetail")
+	public String saveBookingDetail(@Valid @ModelAttribute(name = "booking") BookingEntity booking, BindingResult rs,
+			Model model) {
+
+		if (rs.hasErrors()) {
+			List<PromotionEntity> promotionList = promotionService.findAll();
+			model.addAttribute("promotionList", promotionList);
+			return "manager/updatePromotion";
+
+		}
+
+		bookingService.save(booking);
+		
+		List<BookingEntity> bookingList = bookingService.findAll();
+		model.addAttribute("bookingList", bookingList);
+
+		return "manager/viewBooking";
+	}
+
+	@GetMapping("/addServiceBooking")
+	public String addServiceBooking(Model model, @RequestParam(name = "id") int id) throws Exception {
 
 		BookingDetailEntity bookingDetail = bookingDetailsService.findbyId(id);
 
@@ -494,13 +518,14 @@ public class ManagerController {
 	 * @return
 	 */
 	@PostMapping("/doAddServiceBooking")
-	public String addServicebooking(Model model,
+	public String doAddServiceBooking(Model model,
 			@ModelAttribute(name = "serviceBooking") ServiceBookingEntity serviceBooking,
 			@RequestParam(name = "bookingDetailId") int bookingDetailId) {
 		if (serviceBooking != null && serviceBooking.getService() != null
 				&& serviceBooking.getService().getId() != null) {
 			ServiceBookingEntity sb = null;
-			Optional<ServiceBookingEntity> sbOpt = serviceBookingService.findByBookingDetailAndService(bookingDetailId, serviceBooking.getService().getId());
+			Optional<ServiceBookingEntity> sbOpt = serviceBookingService.findByBookingDetailAndService(bookingDetailId,
+					serviceBooking.getService().getId());
 			if (sbOpt.isPresent()) {
 				sb = sbOpt.get();
 				sb.setQuantity(serviceBooking.getQuantity());
@@ -509,6 +534,7 @@ public class ManagerController {
 				ServiceEntity service = serviceService.findById(serviceBooking.getService().getId());
 				if (service != null) {
 					sb = new ServiceBookingEntity();
+					sb.setQuantity(serviceBooking.getQuantity());
 					sb.setPrice((int) (serviceBooking.getQuantity() * service.getPrice()));
 					sb.setServiceBookingDate(LocalDate.now());
 					sb.setService(service);
@@ -517,7 +543,7 @@ public class ManagerController {
 			}
 			serviceBookingService.save(sb);
 		}
-		return "redirect:/manager/ServiceBooking?id=" + bookingDetailId;
+		return "redirect:/manager/addServiceBooking?id=" + bookingDetailId;
 	}
 
 	@GetMapping("/deleteServiceInServiceBooking")
@@ -526,8 +552,78 @@ public class ManagerController {
 
 		bookingDetailsService.deleteServiceBooking(id, bookingDetailId);
 
-		return "redirect:/manager/ServiceBooking?id=" + bookingDetailId;
+		return "redirect:/manager/addServiceBooking?id=" + bookingDetailId;
 
+	}
+
+	@GetMapping("/addGuest")
+	public String addGuest(Model model, @RequestParam(name = "id") int id) throws Exception {
+
+		BookingDetailEntity bookingDetail = bookingDetailsService.findbyId(id);
+
+		List<GuestEntity> guestList = guestService.findByBookingDetailId(id);
+		if (bookingDetail != null) {
+			model.addAttribute("guestList", guestList);
+			model.addAttribute("bookingDetail", bookingDetail);
+			model.addAttribute("guest", new GuestEntity());
+
+			return "manager/addGuest";
+		} else {
+			return "error";
+		}
+
+	}
+
+	@PostMapping("/doAddGuest")
+	public String doAddGuest(Model model, @ModelAttribute(name = "serviceBooking") GuestEntity guest,
+			@RequestParam(name = "bookingDetailId") int bookingDetailId) {
+
+		guest.setBookingDetail(bookingDetailsService.findbyId(bookingDetailId));
+		guestService.save(guest);
+
+		return "redirect:/manager/addGuest?id=" + bookingDetailId;
+	}
+
+	@GetMapping("/deleteGuest")
+	public String deleteGuest(Model model, @RequestParam(name = "id") int id,
+			@RequestParam(name = "bookingDetailId") int bookingDetailId) {
+
+		bookingDetailsService.deleteGuest(id, bookingDetailId);
+
+		return "redirect:/manager/addGuest?id=" + bookingDetailId;
+
+	}
+
+	@GetMapping("/updateGuest")
+	public String updateGuest(Model model, @RequestParam(name = "id") int id,
+			@RequestParam(name = "bookingDetailId") int bookingDetailId) throws Exception {
+
+		BookingDetailEntity bookingDetail = bookingDetailsService.findbyId(bookingDetailId);
+
+		List<GuestEntity> guestList = guestService.findByBookingDetailId(bookingDetailId);
+		if (bookingDetail != null) {
+
+			Optional<GuestEntity> guest = guestService.findById(id);
+
+			model.addAttribute("guestList", guestList);
+			model.addAttribute("bookingDetail", bookingDetail);
+			model.addAttribute("guest", guest);
+
+			return "manager/addGuest";
+		} else {
+			return "error";
+		}
+
+	}
+
+	@PostMapping("/doUpdateGuest")
+	public String doUpdateGuest(Model model, @ModelAttribute(name = "serviceBooking") GuestEntity guest,
+			@RequestParam(name = "bookingDetailId") int bookingDetailId) {
+
+		guest.setBookingDetail(bookingDetailsService.findbyId(bookingDetailId));
+		guestService.save(guest);
+
+		return "redirect:/manager/addGuest?id=" + bookingDetailId;
 	}
 
 }

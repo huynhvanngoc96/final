@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
+import com.mycompany.spring_mvc_project_final.service.UserRoleService;
 import com.mycompany.spring_mvc_project_final.service.UserService;
 
 @Controller
@@ -29,6 +31,12 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	UserRoleService userRoleService;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("/home")
 	public String viewHome(Model model) {
@@ -40,42 +48,55 @@ public class AdminController {
 		}
 
 		model.addAttribute("message", "Hello Admin: " + username);
-		return "admin/home";
+		return "home-admin";
 	}
 
-	@GetMapping("/view-account")
+	@GetMapping("/viewAccount")
 	public String viewAccount(Model model) {
 		List<UserEntity> userList = userService.findAll();
 		model.addAttribute("userList", userList);
-		return "admin/view-account";
+		return "admin/viewAccount";
 	}
 
-	@GetMapping("/account-detail")
+	@GetMapping("/addAccount")
 	public String addAccount(Model model) {
 		model.addAttribute("status", UserStatus.values());
 		model.addAttribute("user", new UserEntity());
-		return "admin/account-detail";
+		model.addAttribute("userRoleList", userRoleService.findAll());
+		return "admin/addAccount";
 	}
 
 	@PostMapping("/doAddAccount")
 	public String doAddAccount(@Valid @ModelAttribute(name = "user") UserEntity user, BindingResult rs, Model model) {
+
 		if (rs.hasErrors()) {
+			List<UserEntity> userList = userService.findAll();
+			model.addAttribute("userList", userList);
 			model.addAttribute("status", UserStatus.values());
-			return "admin/account-detail";
+			
+			  model.addAttribute("userRoleList", userRoleService.findAll());
+			  return "admin/addAccount";
 		}
+
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.save(user);
-		return "admin/test";
+
+		List<UserEntity> userList = userService.findAll();
+		model.addAttribute("userList", userList);
+
+		return "admin/viewAccount";
 	}
 
-	@GetMapping("/search")
-	public String search(Model model, @RequestParam(name = "keyword") String keyword) {
+	@GetMapping("/searchAccount")
+	public String searchAccount(Model model, @RequestParam(name = "keyword") String keyword) {
+
 		List<UserEntity> userList = userService.searchByName(keyword);
 		model.addAttribute("userList", userList);
-		return "admin/view-account";
+		return "admin/viewAccount";
 	}
 
-	@GetMapping("/editAccount")
-	public String editAccount(Model model, @RequestParam(name = "id") int id) {
+	@GetMapping("/updateAccount")
+	public String updateAccount(Model model, @RequestParam(name = "id") int id) {
 		Optional<UserEntity> opt_user = userService.findById(id);
 		if (opt_user.isPresent()) {
 			model.addAttribute("user", opt_user.get());
@@ -84,32 +105,21 @@ public class AdminController {
 			return "error";
 		}
 
-		return "admin/edit-account";
+		return "admin/updateAccount";
 	}
 
-	@PostMapping("/doEditAccount")
-	public String doEditAccount(@Valid @ModelAttribute(name = "user") UserEntity user, BindingResult rs, Model model) {
+	@PostMapping("/doUpdateAccount")
+	public String doUpdateAccount(@Valid @ModelAttribute(name = "user") UserEntity user, BindingResult rs,
+			Model model) {
 		if (rs.hasErrors()) {
 			model.addAttribute("status", UserStatus.values());
-			return "admin/edit-account";
+			return "admin/updateAccount";
 		}
 
 		userService.save(user);
 		List<UserEntity> userList = userService.findAll();
 		model.addAttribute("userList", userList);
-		return "admin/view-account";
+		return "admin/viewAccount";
 	}
 
-	}
-
-	/*
-	 * @RequestMapping("/home") public String viewHome(Model model) {
-	 * 
-	 * Object principal =
-	 * SecurityContextHolder.getContext().getAuthentication().getPrincipal(); String
-	 * username = principal.toString(); if (principal instanceof UserDetails) {
-	 * username = ((UserDetails) principal).getUsername(); }
-	 * 
-	 * model.addAttribute("message", "Hello Admin: " + username); return
-	 * "admin/home"; }
-	 */
+}

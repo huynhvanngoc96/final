@@ -55,7 +55,7 @@
 											else here</li>
 									</ul>
 								</div>
-								<spring:form action="" method="post" modelAttribute="booking"
+								<spring:form action="saveBookingDetail" method="post" modelAttribute="booking"
 									enctype="multipart/form-data">
 									<div class="card-body row">
 										<spring:hidden path="id" />
@@ -93,7 +93,7 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input"
-													path="bookingDate" readonly="true" />
+													path="bookingDate" readonly="true"/>
 
 												<label class="mdl-textfield__label">Booking Date</label>
 											</div>
@@ -155,14 +155,16 @@
 															<td class="center">$${item.room.roomCategory.price }</td>
 															<td class="center">${item.room.roomCategory.name }</td>
 
-																<td class="center"><c:forEach
-																		items="${item.serviceBookings }" var="sv">${sv.service.name }  </c:forEach>
-																</td>
+																<td class="center">
+																<ul>
+																
+																<c:forEach items="${item.serviceBookings }" var="sv"><li>${sv.service.name } </li> </c:forEach>
+																	</ul></td>
 															<td class="center"><a
-																href="ServiceBooking?id=${item.id }">
+																href="addServiceBooking?id=${item.id }">
 																	<button type="button" class="btn btn-primary">Add
 																		Service</button>
-															</a> <a href="Guest?id=${item.id }">
+															</a> <a href="addGuest?id=${item.id }">
 																	<button type="button" class="btn btn-success">Add
 																		Guest</button>
 															</a></td>
@@ -175,7 +177,8 @@
 										</div>
 
 										<div class="col-lg-12 p-t-20 text-center">
-											
+											<input type="submit" value="Save"
+												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
 											<a href="viewBooking">
 												<button type="button"
 													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Return Booking View</button>

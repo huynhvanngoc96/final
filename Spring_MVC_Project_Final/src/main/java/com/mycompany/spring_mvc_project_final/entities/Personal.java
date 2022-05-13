@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
 public class Personal{
@@ -20,10 +24,12 @@ public class Personal{
 	@Column(unique = true, length = 100)
     private String email;
 	
-	@Column(length = 4)
+	@Column(length = 10)
 	private String gender;
 
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message = "Must be date of past")
 	private LocalDate birthDate;
 	
 	public Personal() {

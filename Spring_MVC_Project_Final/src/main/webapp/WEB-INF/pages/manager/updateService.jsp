@@ -65,7 +65,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="name"
 													/>
-												<spring:errors path="name" />
+												<spring:errors path="name" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Service Name </label>
 											</div>
 										</div>
@@ -75,7 +75,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="price"
 													 pattern="-?[0-9]*(\.[0-9]+)?" />
-												<spring:errors path="price" />
+												<spring:errors path="price" cssStyle="color: red" />
 												<label class="mdl-textfield__label">Price</label> <span
 													class="mdl-textfield__error">Number required!</span>
 											</div>
@@ -86,7 +86,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="location"
 													 />
-												<spring:errors path="location" />
+												<spring:errors path="location"  cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Location</label>
 											</div>
 										</div>
@@ -95,7 +95,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="openTime"
 													 />
-												<spring:errors path="openTime" />
+												<spring:errors path="openTime" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Open Time</label>
 											</div>
 										</div>
@@ -108,7 +108,7 @@
 														<spring:option value="">Select</spring:option>
 														<spring:options items="${status}" />
 													</spring:select>
-													<spring:errors path="status" />
+													<spring:errors path="status" cssStyle="color: red"/>
 												</div>
 											</div>
 										</div>
@@ -127,7 +127,7 @@
 													src="<c:url value="/resources-management/assets/img/${item.name}"/>" />
 												
 												
-												<a href="deleteImageCategory/${item.id }/${service.id}"
+												<a href="deleteImageService/${item.id }/${service.id}"
 													class="btn btn-tbl-delete btn-xs"> <i
 													class="fa fa-trash-o "></i>
 												</a>
@@ -139,14 +139,14 @@
 											<div class="mdl-textfield mdl-js-textfield txt-full-width">
 												<spring:textarea path="description"
 													cssClass="mdl-textfield__input" rows="3" id="education" />
-												<spring:errors path="description" />
+												<spring:errors path="description" cssStyle="color: red"/>
 												<label class="mdl-textfield__label" for="text7">Description</label>
 											</div>
 										</div>
 										<div class="col-lg-12 p-t-20 text-center">
 											<input type="submit" value="Save"
 												class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink" />
-											<a href="viewCategory">
+											<a href="viewService">
 												<button type="button"
 													class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
 											</a>

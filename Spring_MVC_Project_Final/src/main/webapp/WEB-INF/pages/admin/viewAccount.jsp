@@ -1,36 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>All Service</title>
-<jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
-<jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
+<title>Admin Page</title>
+<jsp:include page="/WEB-INF/pages/include/admin/css-page.jsp" />
+<jsp:include page="/WEB-INF/pages/include/admin/js-page.jsp" />
 </head>
 <body
 	class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
 	<div class="page-wrapper">
-		<jsp:include page="/WEB-INF/pages/include/management/header-page.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/pages/include/admin/header-page.jsp"></jsp:include>
 
 		<div class="page-container">
-			<jsp:include page="/WEB-INF/pages/include/management/menu-page.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/pages/include/admin/menu-page.jsp"></jsp:include>
 			<!-- start page content -->
 			<div class="page-content-wrapper">
 				<div class="page-content">
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Services</div>
+								<div class="page-title">All Account</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Service</a>&nbsp;<i
+								<li><a class="parent-item" href="">Manage Account</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">All Services</li>
+								<li class="active">View Account</li>
 							</ol>
 						</div>
 					</div>
@@ -38,7 +39,7 @@
 						<div class="col-md-12">
 							<div class="card card-box">
 								<div class="card-head">
-									<header>All Services</header>
+									<header>Manage Account</header>
 									<div class="tools">
 										<a class="fa fa-repeat btn-color box-refresh"
 											href="javascript:;"></a> <a
@@ -51,11 +52,12 @@
 									<div class="row p-b-20">
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group">
-												<a href="addService" id="addRow" class="btn btn-info">
+												<a href="addAccount" id="addRow" class="btn btn-info">
 													Add New <i class="fa fa-plus"></i>
 												</a>
 											</div>
 										</div>
+
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
 												<a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
@@ -76,58 +78,54 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="row p-b-20">
 										<div class="col-sm-6 col-md-6">
 											<div>
-												<form action="searchService" method="get">
-													<input type="text" name="search" placeholder="Enter a name service"> <input
-														type="submit" value="search">
+												<form action="searchAccount" method="get">
+													<input type="text" name="keyword"
+														placeholder="Search By Name"> <input type="submit"
+														value="search">
 												</form>
 											</div>
 										</div>
+
 									</div>
-									
+
 									<div class="table-scrollable">
 										<table
 											class="table table-hover table-checkable order-column full-width"
 											id="example4">
 											<thead>
 												<tr>
-													<th class="center">Image</th>
+
 													<th class="center">Name</th>
-													<th class="center">Open Time</th>
-													<th class="center">Location</th>
-													<th class="center">Price</th>
-													<th class="center">Create Date</th>
-													<th class="center">Description</th>
+													<th class="center">Email</th>
+													<th class="center">Gender</th>
+													<th class="center">BirthDay</th>
+													<th class="center">Address</th>
+													<th class="center">Phone Number</th>
 													<th class="center">Status</th>
 													<th class="center">Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${serviceList }" var="item">
+												<c:forEach items="${userList }" var="item">
 													<tr>
-														<td class="user-circle-img "><c:forEach
-																items="${item.imageEntities }" var="image" end="0">
-																<img width="100"
-																	src="<c:url value="/resources-management/assets/img/${image.name}"/>" />
-															</c:forEach></td>
-														<td class="center">${item.name }</td>
-														<td class="center">${item.openTime }</td>
-														<td class="center">${item.location }</td>
-														<td class="center">$${item.price }</td>
-														<td class="center">${item.createDate }</td>
-														<td class="center">${item.description }</td>
+
+														<td class="center">${item.fullName }</td>
+														<td class="center">${item.email }</td>
+														<td class="center">${item.gender }</td>
+														<td class="center">${item.birthDate }</td>
+														<td class="center">${item.address }</td>
+														<td class="center">${item.phoneNumber }</td>
 														<td class="center">${item.status }</td>
+
 														<td class="center"><a
-															href="updateService?id=${item.id }"
+															href="updateAccount?id=${item.id }"
 															class="btn btn-tbl-edit btn-xs"> <i
 																class="fa fa-pencil"></i>
-														</a> <%-- <a href="deleteService?id=${item.id }"
-															class="btn btn-tbl-delete btn-xs"> <i
-																class="fa fa-trash-o "></i>
-														</a> --%></td>
+														</a></td>
 													</tr>
 
 												</c:forEach>
@@ -142,7 +140,7 @@
 			</div>
 			<!-- end page content -->
 		</div>
-		<jsp:include page="/WEB-INF/pages/include/management/footer-page.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/pages/include/admin/footer-page.jsp"></jsp:include>
 	</div>
 
 </body>

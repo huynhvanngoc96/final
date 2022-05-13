@@ -22,7 +22,6 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer> {
     UserEntity findByEmailLikeAndStatusLike(String email,
             UserStatus status);
 
-    @Query(value = "select * from user "
-			+ "where concat(address, fullName, email) like %?1%", nativeQuery = true)
-	public List<UserEntity> searchByName(String search);
-}
+    @Query("select u from UserEntity u where u.fullName like %:keyword% ")
+	public List<UserEntity> searchByName(@Param("keyword") String keyword);
+} 

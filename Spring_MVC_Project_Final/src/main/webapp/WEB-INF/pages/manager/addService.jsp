@@ -61,24 +61,24 @@
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="name"
-													 />
+												<spring:input class="mdl-textfield__input" path="name" />
+												<spring:errors path="name" cssStyle="color: red" />
 												<label class="mdl-textfield__label">Service Name</label>
 											</div>
 										</div>
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="openTime"
-													/>
+												<spring:input class="mdl-textfield__input" path="openTime" />
+												<spring:errors path="openTime" cssStyle="color: red" />
 												<label class="mdl-textfield__label">Open Time</label>
 											</div>
 										</div>
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input class="mdl-textfield__input" path="location"
-													 />
+												<spring:input class="mdl-textfield__input" path="location" />
+												<spring:errors path="location" cssStyle="color: red" />
 												<label class="mdl-textfield__label">Location</label>
 											</div>
 										</div>
@@ -86,9 +86,10 @@
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input cssClass="mdl-textfield__input" path="price"
-													pattern="-?[0-9]*(\.[0-9]+)?" />
-												<label class="mdl-textfield__label">Price</label> <span
-													class="mdl-textfield__error">Number required!</span>
+													id="txtRoomNo" pattern="-?[0-9]*(\.[0-9]+)?" />
+												<label class="mdl-textfield__label">Price</label>
+												<spring:errors path="price" cssStyle="color: red" />
+												<span class="mdl-textfield__error">Number required!</span>
 											</div>
 										</div>
 										<div class="col-lg-6 p-t-20">
@@ -99,21 +100,22 @@
 														<spring:option value="">Select</spring:option>
 														<spring:options items="${status}" />
 													</spring:select>
+													<spring:errors path="status" cssStyle="color: red" />
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-6 p-t-20">
-										</div>
+										<div class="col-lg-6 p-t-20"></div>
 										<label class="control-label col-md-3">Upload Room
-												Photos</label>
-										<div class="col-lg-12 p-t-20">	
+											Photos</label>
+										<div class="col-lg-12 p-t-20">
 											<spring:input path="images" type="file" multiple="multiple"
-												cssClass="dropzone" />								
+												cssClass="dropzone" />
 										</div>
 										<div class="col-lg-12 p-t-20">
 											<div class="mdl-textfield mdl-js-textfield txt-full-width">
 												<spring:textarea path="description"
 													cssClass="mdl-textfield__input" rows="3" id="education" />
+												<spring:errors path="description" cssStyle="color: red" />
 												<label class="mdl-textfield__label" for="text7">Description</label>
 											</div>
 										</div>

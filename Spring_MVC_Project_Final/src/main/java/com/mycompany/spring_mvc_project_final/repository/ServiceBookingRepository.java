@@ -15,12 +15,7 @@ public interface ServiceBookingRepository extends CrudRepository<ServiceBookingE
 
 	@Query(value = "select *  from service_booking  join  booking_detail on  booking_detail.id = service_booking.booking_detail_id 	where booking_detail.id = :id", nativeQuery = true)
 	public List<ServiceBookingEntity> findByBookingDetailId(@Param(value = "id") int id);
-	/*
-	 * @Query(value =
-	 * "SELECT service_booking.quantity, service_booking.price FROM service_booking JOIN booking_detail ON booking_detail.id = service_booking.booking_detail_id JOIN  booking ON booking.id = booking_detail.booking_id  JOIN room ON booking_detail.room_id = room.id Join service on service.id = service_booking.service_id WHERE room.id = :id"
-	 * , nativeQuery = true) public List<ServiceBookingEntity> findByRoom(int id);
-	 */
-	
+		
 	@Query(value = "Select * from service_booking where booking_detail_id = :bdId and service_id = :svId", nativeQuery = true)
 	public Optional<ServiceBookingEntity> findByBookingDetailAndService(@Param(value = "bdId") int bdId, @Param(value = "svId") int svId);
 }

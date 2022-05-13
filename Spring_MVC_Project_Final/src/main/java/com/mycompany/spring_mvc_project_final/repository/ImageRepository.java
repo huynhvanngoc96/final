@@ -25,6 +25,6 @@ public interface ImageRepository extends CrudRepository<ImageEntity, Integer> {
 	
 	@Modifying
 	@Transactional
-	@Query(value = "delete from image where promotion_id = :promotionIds and id = :id", nativeQuery = true)
+	@Query(value = "delete from image where promotion_id = :promotionId and id = :id", nativeQuery = true)
 	public void deleteImgPromotion(@Param("promotionId") int categoryId, @Param("id") int id);
 }

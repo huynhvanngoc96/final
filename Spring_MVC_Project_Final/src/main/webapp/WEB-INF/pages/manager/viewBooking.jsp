@@ -81,7 +81,7 @@
 												<form action="searchBooking" method="get">
 													<input type="text" name="search"> <input
 														type="submit" value="Search">
-												</form>
+												</form>	
 											</div>
 										</div>
 									</div>
@@ -112,7 +112,7 @@
 														<td class="center">${item.checkIn }</td>
 														<td class="center">${item.checkOut }</td>
 														<td class="center"><span
-															class="label  label-success">${item.status }
+															class="label label-danger">${item.status }
 														</span></td>
 														
 														<td class="center"><a

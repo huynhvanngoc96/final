@@ -58,10 +58,6 @@
 												</a>
 											</div>
 										</div>
-										<!-- <form action="searchCategory" method="get">
-											<input type="text" name="search"> <input
-												type="submit" value="search">
-										</form> -->
 
 										<div class="col-md-6 col-sm-6 col-6">
 											<div class="btn-group pull-right">
@@ -93,8 +89,8 @@
 												</form>
 											</div>
 										</div>
-
 									</div>
+									
 									<div class="table-scrollable">
 										<table
 											class="table table-hover table-checkable order-column full-width"

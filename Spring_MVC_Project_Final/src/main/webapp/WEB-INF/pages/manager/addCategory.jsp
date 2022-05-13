@@ -64,7 +64,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="name"
 													id="txtRoomNo" />
-												<spring:errors path="name" />
+												<spring:errors path="name" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Room Name</label>
 											</div>
 										</div>
@@ -74,7 +74,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="size"
 													id="txtRoomNo" pattern="-?[0-9]*(\[0-9]+)?"  />
-												<spring:errors path="size" />
+												<spring:errors path="size" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Room Size</label> <span
 													class="mdl-textfield__error">Number required!</span>
 											</div>
@@ -85,7 +85,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="bedInfo"
 													id="txtRoomNo" />
-												<spring:errors path="bedInfo" />
+												<spring:errors path="bedInfo" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Type Bed</label>
 											</div>
 										</div>
@@ -94,7 +94,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input class="mdl-textfield__input" path="capacity"
 													id="txtRoomNo" />
-												<spring:errors path="capacity" />
+												<spring:errors path="capacity" cssStyle="color: red"/>
 												<label class="mdl-textfield__label">Capacity</label>
 											</div>
 										</div>
@@ -104,7 +104,7 @@
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
 												<spring:input cssClass="mdl-textfield__input" path="price"
 													id="txtRoomNo" pattern="-?[0-9]*(\.[0-9]+)?" />
-												<spring:errors path="price" />
+												<spring:errors path="price" cssStyle="color: red" />
 												<label class="mdl-textfield__label">Price</label> <span
 													class="mdl-textfield__error">Number required!</span>
 											</div>
@@ -118,7 +118,7 @@
 														<spring:option value="">Select</spring:option>
 														<spring:options items="${status}" />
 													</spring:select>
-													<spring:errors path="status" />
+													<spring:errors path="status" cssStyle="color: red"/>
 												</div>
 											</div>
 										</div>
@@ -133,7 +133,7 @@
 											<div class="mdl-textfield mdl-js-textfield txt-full-width">
 												<spring:textarea path="description"
 													cssClass="mdl-textfield__input" rows="3" id="education" />
-												<spring:errors path="description" />
+												<spring:errors path="description" cssStyle="color: red"/>
 												<label class="mdl-textfield__label" for="text7">Description</label>
 											</div>
 										</div>

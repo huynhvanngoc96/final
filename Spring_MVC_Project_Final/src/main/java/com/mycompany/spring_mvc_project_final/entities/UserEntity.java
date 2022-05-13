@@ -22,6 +22,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
 
@@ -37,6 +38,7 @@ public class UserEntity extends Personal {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Status is required")
     private UserStatus status;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

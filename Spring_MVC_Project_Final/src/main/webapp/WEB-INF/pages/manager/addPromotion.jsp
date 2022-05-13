@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add Category</title>
+<title>Add Promotion</title>
 <jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
 <jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
 </head>
@@ -64,27 +64,27 @@
 												<spring:input class="mdl-textfield__input" path="name"
 													 />
 												<label class="mdl-textfield__label">Promotion Name</label>
-												<spring:errors path="name" />
+												<spring:errors path="name" cssStyle="color: red" />
 											</div>
 										</div>
 
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input type="date" path="startDate"
+												<spring:input  path="startDate" id="date"
 													class="floating-label mdl-textfield__input"
 													placeholder="Start Date" />
-													<spring:errors path="startDate" />
+													<spring:errors path="startDate" cssStyle="color: red" />
 											</div>
 										</div>
 
 										<div class="col-lg-6 p-t-20">
 											<div
 												class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-												<spring:input  path="endDate" type="date"
+												<spring:input  path="endDate" id="date1"
 													class="floating-label mdl-textfield__input"
 													placeholder="End Date" />
-													<spring:errors path="endDate" />
+													<spring:errors path="endDate" cssStyle="color: red"/>
 											</div>
 										</div>
 
@@ -96,7 +96,7 @@
 													pattern="-?[0-9]*(\.[0-9]+)?" />
 												<label class="mdl-textfield__label">Discount</label> <span
 													class="mdl-textfield__error">Number required!</span>
-													<spring:errors path="discount" />
+													<spring:errors path="discount" cssStyle="color: red"/>
 											</div>
 										</div>
 
@@ -112,7 +112,7 @@
 												<spring:textarea path="description"
 													cssClass="mdl-textfield__input" rows="3" id="education" />
 												<label class="mdl-textfield__label" for="text7">Description</label>
-												<spring:errors path="description" />
+												<spring:errors path="description" cssStyle="color: red"/>
 											</div>
 										</div>
 										

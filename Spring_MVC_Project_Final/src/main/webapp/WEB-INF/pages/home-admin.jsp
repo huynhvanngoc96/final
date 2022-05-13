@@ -6,17 +6,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
-<jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
+<title>Admin Page</title>
+<jsp:include page="/WEB-INF/pages/include/admin/css-page.jsp" />
+<jsp:include page="/WEB-INF/pages/include/admin/js-page.jsp" />
 </head>
 <body
 	class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white dark-sidebar-color logo-dark">
 	<div class="page-wrapper">
-		<jsp:include page="/WEB-INF/pages/include/management/header-page.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/pages/include/admin/header-page.jsp"></jsp:include>
 
 		<div class="page-container">
-			<jsp:include page="/WEB-INF/pages/include/management/menu-page.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/pages/include/admin/menu-page.jsp"></jsp:include>
 			<!-- start page content -->
 			<div class="page-content-wrapper">
 				<div class="page-content">
@@ -29,9 +29,9 @@
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
 									href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
 								</li>
-								<li><a class="parent-item" href="">Account</a>&nbsp;<i
+								<li><a class="parent-item" href="">Manage Account</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">Manage Account</li>
+								<li class="active">View Account</li>
 							</ol>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 						<div class="col-md-12">
 							<div class="card card-box">
 								<div class="card-head">
-									<header>Room Category</header>
+									<header>Manage Account</header>
 									<div class="tools">
 										<a class="fa fa-repeat btn-color box-refresh"
 											href="javascript:;"></a> <a
@@ -132,7 +132,7 @@
 			</div>
 			<!-- end page content -->
 		</div>
-		<jsp:include page="/WEB-INF/pages/include/management/footer-page.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/pages/include/admin/footer-page.jsp"></jsp:include>
 	</div>
 
 </body>

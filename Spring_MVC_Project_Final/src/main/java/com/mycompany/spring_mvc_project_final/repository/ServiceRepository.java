@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
+import com.mycompany.spring_mvc_project_final.entities.UserEntity;
 
 @Repository
 public interface ServiceRepository extends CrudRepository<ServiceEntity, Integer> {
@@ -21,4 +22,7 @@ public interface ServiceRepository extends CrudRepository<ServiceEntity, Integer
 				+ "WHERE room.id = :id",nativeQuery = true)
 	public List<ServiceEntity> findServiceByRoom(@Param("id")int id);
 
+	@Query("select s from ServiceEntity s where s.name like %:keyword% ")
+	public List<ServiceEntity> searchByName(@Param("keyword") String keyword);
+	
 }

@@ -26,7 +26,6 @@ public class ImageService {
 	@Autowired
 	ImageRepository imageRepository;
 
-
 	public void save(ImageEntity image) {
 		imageRepository.save(image);
 	}
@@ -39,18 +38,16 @@ public class ImageService {
 
 		imageRepository.deleteImgCategory(categoryId, id);
 	}
-	
+
 	public void deleteImgService(int serviceId, int id) {
 
 		imageRepository.deleteImgService(serviceId, id);
 	}
 
-	
 	public void deleteImgPromotion(int promotionId, int id) {
 
 		imageRepository.deleteImgPromotion(promotionId, id);
 	}
-
 
 	public List<ImageEntity> uploadImageService(MultipartFile[] files, HttpServletRequest servletRequest,
 			ServiceEntity service) {
@@ -90,7 +87,6 @@ public class ImageService {
 	public List<ImageEntity> uploadImageCategory(MultipartFile[] files, HttpServletRequest servletRequest,
 			RoomCategoryEntity roomCategory) {
 
-
 		List<ImageEntity> lstImages = new ArrayList<ImageEntity>();
 
 		if (roomCategory.getId() == null) {
@@ -128,6 +124,13 @@ public class ImageService {
 
 		List<ImageEntity> lstImages = new ArrayList<ImageEntity>();
 
+		if (promotion.getId() == null) {
+
+		} else {
+			if (promotion.getImageEntities() != null) {
+				lstImages = promotion.getImageEntities();
+			}
+		}
 		for (MultipartFile multipartFile : files) {
 
 			UUID uuid = UUID.randomUUID();

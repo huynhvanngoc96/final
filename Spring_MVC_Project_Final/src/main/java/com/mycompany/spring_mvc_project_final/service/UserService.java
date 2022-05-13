@@ -32,7 +32,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
-	public List<UserEntity> searchByName(String search) {
-		return userRepository.searchByName(search);
+	public List<UserEntity> searchByName(String keyword) {
+		return userRepository.searchByName(keyword);
 	}
 }

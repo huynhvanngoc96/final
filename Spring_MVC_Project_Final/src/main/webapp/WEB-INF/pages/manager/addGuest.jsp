@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Service Booking</title>
+<title>Guests</title>
 <jsp:include page="/WEB-INF/pages/include/management/css-page.jsp" />
 <jsp:include page="/WEB-INF/pages/include/management/js-page.jsp" />
 </head>
@@ -23,7 +23,7 @@
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
-								<div class="page-title">Service Booking</div>
+								<div class="page-title">Add Guest</div>
 							</div>
 							<ol class="breadcrumb page-breadcrumb pull-right">
 								<li><i class="fa fa-home"></i>&nbsp;<a class="parent-item"
@@ -31,7 +31,7 @@
 								</li>
 								<li><a class="parent-item" href="">Booking</a>&nbsp;<i
 									class="fa fa-angle-right"></i></li>
-								<li class="active">Service Booking</li>
+								<li class="active">Guests</li>
 							</ol>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 						<div class="col-sm-12">
 							<div class="card-box">
 								<div class="card-head">
-									<header>Service Booking</header>
+									<header>Guests</header>
 									<button id="panel-button"
 										class="mdl-button mdl-js-button mdl-button--icon pull-right"
 										data-upgraded=",MaterialButton">
@@ -86,25 +86,51 @@
 										<button id="btn" class="btn btn-info">Add New</button>
 									</div>
 
-									<div id="formService" style="margin-top: 15px">
+									<div>
 										<spring:form
-											action="doAddServiceBooking?bookingDetailId=${bookingDetail.id}"
-											method="post" modelAttribute="serviceBooking" >
+											action="doAddGuest?bookingDetailId=${bookingDetail.id}"
+											method="post" modelAttribute="guest" id="formService">
+											<div class="card-body row">
+												<spring:input path="id" hidden="true" />
+												<div class="col-lg-6 p-t-20">
+													<div
+														class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+														<spring:input class="mdl-textfield__input" path="fullName" />
+														<label class="mdl-textfield__label">Name</label>
+													</div>
+												</div>
 
-											<div class="col-lg-2" style="margin: 5px">
-												<spring:select path="service.id" cssClass="form-control">
-													<spring:option value="0">Select</spring:option>
-													<spring:options items="${serviceList}" itemLabel="name"
-														itemValue="id" />
-												</spring:select>
-											</div>
+												<div class="col-lg-6 p-t-20">
+													<div
+														class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+														<spring:input class="mdl-textfield__input" path="idCard" />
+														<label class="mdl-textfield__label">idCard</label>
+													</div>
+												</div>
 
-											<div class="col-lg-2" style="margin: 5px">
-												<spring:input path="quantity" cssClass="form-control" />
-											</div>
-											<div class="col-lg-2" style="margin: 5px">
-												<input type="submit" value="Add"
-													class="mdl-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink " />
+												<div class="col-lg-6 p-t-20">
+													<div
+														class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+														<spring:input class="mdl-textfield__input"
+															path="phoneNumber" />
+
+														<label class="mdl-textfield__label">Phone Number</label>
+													</div>
+												</div>
+
+												<div class="col-lg-6 p-t-20">
+													<div
+														class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+														<spring:input class="mdl-textfield__input" path="address" />
+
+														<label class="mdl-textfield__label">Address</label>
+													</div>
+												</div>
+
+												<div class="col-lg-12 p-t-20 text-center">
+													<input type="submit" value="Save"
+														class="mdl-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink " />
+												</div>
 											</div>
 										</spring:form>
 									</div>
@@ -116,20 +142,26 @@
 										<thead>
 											<tr>
 												<th class="center">Name</th>
-												<th class="center">Price</th>
-												<th class="center">Quantity</th>
+												<th class="center">Address</th>
+												<th class="center">idCard</th>
+												<th class="center">Phone Number</th>
 												<th class="center">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${serviceBookingList }" var="item">
+											<c:forEach items="${guestList }" var="item">
 												<tr>
-													<td class="center">${item.service.name }</td>
-													<td class="center">$${item.price }</td>
-													<td class="center">${item.quantity }</td>
+													<td class="center">${item.fullName }</td>
+													<td class="center">${item.address }</td>
+													<td class="center">${item.idCard }</td>
+													<td class="center">${item.phoneNumber }</td>
 													<td class="center"><a
-														href="deleteServiceInServiceBooking?id=${item.id }&bookingDetailId=${bookingDetail.id}">
-															<button type="button" class="btn btn-primary">Remove</button>
+														href="updateGuest?id=${item.id }&bookingDetailId=${bookingDetail.id}">
+															<button type="button" class="btn btn-primary">Update</button>
+													</a> <a
+														href="deleteGuest?id=${item.id }&bookingDetailId=${bookingDetail.id}">
+															<button type="button" class="btn btn-warning">Remove</button>
+
 													</a></td>
 												</tr>
 

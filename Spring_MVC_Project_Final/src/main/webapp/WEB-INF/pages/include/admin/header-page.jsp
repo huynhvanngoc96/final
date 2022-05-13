@@ -5,7 +5,7 @@
 	<div class="page-header-inner ">
 		<!-- logo start -->
 		<div class="page-logo">
-			<a href="index.html"> <%-- <img alt="" width="40"
+			<a href="index.html"> <%-- <img alt="" width="20"
 				src="<c:url value="/resources-management/assets/img/logo-big.png"/>"> --%>
 				<span class="logo-default">Management</span>
 			</a>
@@ -30,8 +30,8 @@
 				<li class="dropdown dropdown-user"><a href="javascript:;"
 					class="dropdown-toggle" data-toggle="dropdown"
 					data-hover="dropdown" data-close-others="true"> <img alt=""
-						class="img-circle " src="<c:url value="/resources-management/assets/img/person_3.jpg"/> "/> <span
-						class="username username-hide-on-mobile"> Manager </span> <i
+						class="img-circle " src="<c:url value="/resources-management/assets/img/person_5.jpg"/> "/> <span
+						class="username username-hide-on-mobile"> Admin </span> <i
 						class="fa fa-angle-down"></i>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-default animated jello">
@@ -46,7 +46,7 @@
 						<li><a href="lock_screen.html"> <i class="icon-lock"></i>
 								Lock
 						</a></li>
-						<li><a href=''> <i class="icon-logout"></i> Log
+						<li><a href="<c:url value="/logout" />"> <i class="icon-logout"></i> Log
 								Out
 						</a></li>
 					</ul></li>

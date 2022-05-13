@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.spring_mvc_project_final.entities.RoomCategoryEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceEntity;
 import com.mycompany.spring_mvc_project_final.repository.ServiceRepository;
 
@@ -37,5 +38,9 @@ public class ServiceService {
 	public List<ServiceEntity> findServiceByRoom(int id) {
 		
 		return serviceRepository.findServiceByRoom(id);
+	}
+
+	public List<ServiceEntity> searchByName(String search) {
+		return serviceRepository.searchByName(search);	
 	}
 }

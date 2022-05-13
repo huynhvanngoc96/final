@@ -81,7 +81,6 @@
 											id="example4">
 											<thead>
 												<tr>
-													<th class="center">Id</th>
 													<th class="center">Room Number</th>
 													<th class="center">Status</th>
 													<th class="center">Type Room</th>
@@ -90,7 +89,6 @@
 											<tbody>
 												<c:forEach items="${roomList }" var="item">
 													<tr>
-														<td class="center">${item.id }</td>
 														<td class="center">${item.roomNumber }</td>
 														<td class="center">${item.status }</td>
 														<td class="center">${item.roomCategory.name }</td>								

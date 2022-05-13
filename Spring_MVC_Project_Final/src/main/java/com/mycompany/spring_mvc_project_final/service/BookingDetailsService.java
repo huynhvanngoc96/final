@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.spring_mvc_project_final.entities.BookingDetailEntity;
+import com.mycompany.spring_mvc_project_final.entities.GuestEntity;
 import com.mycompany.spring_mvc_project_final.entities.RoomEntity;
 import com.mycompany.spring_mvc_project_final.entities.ServiceBookingEntity;
 import com.mycompany.spring_mvc_project_final.repository.BookingDetailsRepository;
@@ -19,6 +20,9 @@ public class BookingDetailsService {
 	
 	@Autowired
 	ServiceBookingService serviceBookingService;
+	
+	@Autowired
+	GuestService guestService;
 	
 
 	public void save(BookingDetailEntity bookingDetails) {
@@ -49,4 +53,18 @@ public class BookingDetailsService {
 		}
 		
 	}
+	
+	public void deleteGuest(int guestId, int bookingDetailId) {
+		
+		Optional<GuestEntity> opt_guest = guestService.findById(guestId);
+		
+		if (opt_guest.isPresent()) {
+			GuestEntity guest = opt_guest.get();
+			guest.setBookingDetail(null);			
+			guestService.save(guest);
+			guestService.deleteById(guestId);
+		}
+		
+	}
+	
 }
